@@ -11,16 +11,24 @@ public class Pedido {
     private Mesero mesero;
     private boolean estado;
     private LocalDate fechaPedido;
-    private List<DetallePedido> detalles;
+//    private List<DetallePedido> detalles;
 
-    public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean estado, LocalDate fechaPedido, List<DetallePedido> detalles) {
+    public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean estado, LocalDate fechaPedido) {
         this.idPedido = idPedido;
         this.mesa = mesa;
         this.mesero = mesero;
         this.estado = estado;
         this.fechaPedido = fechaPedido;
-        this.detalles = detalles;
     }
+
+    public Pedido(Mesa mesa, Mesero mesero, boolean estado, LocalDate fechaPedido) {
+        this.mesa = mesa;
+        this.mesero = mesero;
+        this.estado = estado;
+        this.fechaPedido = fechaPedido;
+    }
+
+  
 
 
     public int getIdPedido() {
@@ -55,13 +63,13 @@ public class Pedido {
         this.fechaPedido = fechaPedido;
     }
 
-    public List<DetallePedido> getDetalles() {
-        return detalles;
-    }
-
-    public void setDetalles(List<DetallePedido> detalles) {
-        this.detalles = detalles;
-    }
+//    public List<DetallePedido> getDetalles() {
+//        return detalles;
+//    }
+//
+//    public void setDetalles(List<DetallePedido> detalles) {
+//        this.detalles = detalles;
+//    }
 
     public boolean isEstado() {
         return estado;
