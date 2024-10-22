@@ -4,12 +4,20 @@
  */
 package VistasInternas;
 
+import AccesoADatos.MozoData;
+import Entidades.Mesero;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author matiSqui
  */
 public class InternalAdminMozos extends javax.swing.JInternalFrame {
 
+    private MozoData mozoData = new MozoData();
+    private Mesero meseroActual = null;
+    
+    
     /**
      * Creates new form InternalAdminMozos
      */
@@ -29,92 +37,286 @@ public class InternalAdminMozos extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jtNombre = new javax.swing.JTextField();
+        jtApellido = new javax.swing.JTextField();
+        jtDni = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        cbxEstado = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
         btBuscar = new javax.swing.JButton();
-        btModificar = new javax.swing.JButton();
-        btEliminar = new javax.swing.JButton();
         btGuardar = new javax.swing.JButton();
         btSalir = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        btNuevo = new javax.swing.JButton();
+        txMensaje = new javax.swing.JLabel();
 
-        getContentPane().setLayout(null);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
 
         jLabel1.setText("Nombre:");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(100, 200, 47, 16);
 
         jLabel2.setText("Apellido:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(100, 250, 47, 16);
 
         jLabel3.setText("DNI:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(120, 150, 23, 16);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(170, 200, 141, 22);
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(170, 250, 141, 22);
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(170, 150, 141, 22);
 
         jLabel4.setText("Estado:");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(110, 300, 38, 16);
 
-        jCheckBox1.setText("Activo/Inactivo");
-        getContentPane().add(jCheckBox1);
-        jCheckBox1.setBounds(170, 300, 104, 20);
+        cbxEstado.setText("Activo/Inactivo");
+        cbxEstado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cbxEstadoMouseEntered(evt);
+            }
+        });
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/manejoPersonal.PNG"))); // NOI18N
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(0, 0, 628, 125);
 
         btBuscar.setText("Buscar");
-        getContentPane().add(btBuscar);
-        btBuscar.setBounds(340, 150, 72, 23);
-
-        btModificar.setText("Modificar");
-        getContentPane().add(btModificar);
-        btModificar.setBounds(40, 380, 90, 23);
-
-        btEliminar.setText("Eliminar");
-        getContentPane().add(btEliminar);
-        btEliminar.setBounds(290, 380, 75, 23);
+        btBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBuscarActionPerformed(evt);
+            }
+        });
 
         btGuardar.setText("Guardar");
-        getContentPane().add(btGuardar);
-        btGuardar.setBounds(170, 380, 72, 23);
+        btGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarActionPerformed(evt);
+            }
+        });
 
         btSalir.setText("Salir");
-        getContentPane().add(btSalir);
-        btSalir.setBounds(410, 380, 75, 23);
-        getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(30, 350, 480, 10);
+        btSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalirActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Acá podrás cargar y modificar a los diferentes mozos del restaurant.");
+
+        btNuevo.setText("Nuevo");
+        btNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevoActionPerformed(evt);
+            }
+        });
+
+        txMensaje.setText("\"\"");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(btNuevo)
+                                .addGap(106, 106, 106)
+                                .addComponent(btGuardar)
+                                .addGap(116, 116, 116)
+                                .addComponent(btSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(cbxEstado))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2))
+                                .addGap(23, 23, 23)
+                                .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1))
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtNombre)
+                                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(44, 44, 44)
+                        .addComponent(btBuscar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(txMensaje)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addGap(27, 27, 27)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btBuscar)
+                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxEstado)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(txMensaje)
+                .addGap(49, 49, 49)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btSalir)
+                    .addComponent(btGuardar)
+                    .addComponent(btNuevo))
+                .addGap(52, 52, 52))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
+ 
+        try{
+        
+        Integer dniSel = Integer.parseInt(jtDni.getText());
+        
+        String nombreSel = jtNombre.getText();
+        String apelliSel = jtApellido.getText();
+        boolean estadoSel = cbxEstado.isSelected();
+
+        if (apelliSel.isEmpty() || nombreSel.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No puede dejar campos vacios.");
+            return;
+        }
+
+        Mesero mesero = null;
+
+        if (meseroActual == null) {
+            mesero = new Mesero(nombreSel, apelliSel, dniSel, estadoSel);
+            mozoData.guardarMozo(mesero);
+        } else {
+            
+            mesero = meseroActual;
+            mesero.setDni(dniSel);
+            mesero.setNombre(nombreSel);
+            mesero.setApellido(apelliSel);
+            mesero.setEstado(estadoSel);
+            mozoData.modificarMozo(mesero);
+        }
+
+       
+    } catch (NumberFormatException nfe){
+        JOptionPane.showMessageDialog(null, "DEBE INGRESAR UN DNI VALIDO");
+    }
+        
+
+    }//GEN-LAST:event_btGuardarActionPerformed
+
+    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
+
+       
+        try{
+              Integer dniSel = Integer.parseInt(jtDni.getText());
+        
+        meseroActual = mozoData.buscarMozoDni(dniSel);
+        
+        
+        if (meseroActual!= null) {
+            
+            
+            jtNombre.setText(meseroActual.getNombre());
+            jtApellido.setText(meseroActual.getApellido());
+            cbxEstado.setSelected(meseroActual.isEstado());
+            
+            
+            
+        }
+        } catch (NumberFormatException ex){
+            
+            JOptionPane.showMessageDialog(this, "DEBE INGRESAR UN DNI VALIDO");
+            
+        }
+     
+        
+    }//GEN-LAST:event_btBuscarActionPerformed
+
+    private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
+dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btSalirActionPerformed
+
+    private void btNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevoActionPerformed
+
+        limpiarCampos();
+        meseroActual = null;
+
+
+    }//GEN-LAST:event_btNuevoActionPerformed
+
+    private void cbxEstadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxEstadoMouseEntered
+        
+        txMensaje.setText("(para dar de baja solo destildar el check y guardar)");
+
+    }//GEN-LAST:event_cbxEstadoMouseEntered
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+
+        txMensaje.setText("");
+    }//GEN-LAST:event_formMouseEntered
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
-    private javax.swing.JButton btEliminar;
     private javax.swing.JButton btGuardar;
-    private javax.swing.JButton btModificar;
+    private javax.swing.JButton btNuevo;
     private javax.swing.JButton btSalir;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox cbxEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jtApellido;
+    private javax.swing.JTextField jtDni;
+    private javax.swing.JTextField jtNombre;
+    private javax.swing.JLabel txMensaje;
     // End of variables declaration//GEN-END:variables
+
+
+    public void limpiarCampos(){
+        
+        jtDni.setText("");
+        jtNombre.setText("");
+        jtApellido.setText("");
+        cbxEstado.setSelected(false);
+        
+    }
 }

@@ -23,6 +23,9 @@ public class Mesero {
         this.dni = dni;
         this.estado = estado;
     }
+
+    public Mesero() {
+    }
     
     
 
@@ -66,6 +69,12 @@ public class Mesero {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "Mesero{" + "idMesero=" + idMesero + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", estado=" + estado + '}';
+    }
+
+    
     
   
 }
