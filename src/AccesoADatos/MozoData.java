@@ -134,6 +134,7 @@ public class MozoData {
         return mozo;
     }
  
+    //Buscar por id
       public Mesero buscarMozoId(int id){
         
         String sql = "SELECT * FROM mesero WHERE id_mesero = ?";
