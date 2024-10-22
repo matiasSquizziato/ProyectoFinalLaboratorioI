@@ -64,6 +64,11 @@ public class InternalMesas extends javax.swing.JInternalFrame {
         cbxEstado.setText("Activo/Inactivo");
 
         btNuevo.setText("Nuevo");
+        btNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevoActionPerformed(evt);
+            }
+        });
 
         btGuardar.setText("Guardar");
         btGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -195,19 +200,20 @@ dispose();        // TODO add your handling code here:
                 return;
             }
         
-            Mesa mesaN = null;
             
             if (mesaActual == null) {
                 
-                mesaN = new Mesa(numMesa, capMesa, estadoSel);
-                meData.cargarMesa(mesaN);
+                mesaActual = new Mesa(numMesa, capMesa, estadoSel);
+                meData.cargarMesa(mesaActual);
             } else {
                 
-                mesaN.setNumeroMesa(numMesa);
-                mesaN.setCapacidad(capMesa);
-                mesaN.setEstado(estadoSel);
                 
-                //Modigicarmesa: 
+                
+                mesaActual.setNumeroMesa(numMesa);
+                mesaActual.setCapacidad(capMesa);
+                mesaActual.setEstado(estadoSel);
+                
+                meData.modificarMesa(mesaActual);
             }
             
         }catch(NumberFormatException ex){
@@ -216,6 +222,13 @@ dispose();        // TODO add your handling code here:
 
 
     }//GEN-LAST:event_btGuardarActionPerformed
+
+    private void btNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevoActionPerformed
+        limpiarCampos();
+        mesaActual=null;
+        
+
+    }//GEN-LAST:event_btNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -234,4 +247,13 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JTextField jtCapacidad;
     private javax.swing.JTextField jtNumeroMesa;
     // End of variables declaration//GEN-END:variables
+
+
+ public void limpiarCampos(){
+        
+        jtCapacidad.setText("");
+        jtNumeroMesa.setText("");
+        cbxEstado.setSelected(false);
+        
+    }
 }

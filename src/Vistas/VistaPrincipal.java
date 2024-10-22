@@ -6,6 +6,7 @@ package Vistas;
 
 import VistasInternas.InternalAdminMozos;
 import VistasInternas.InternalMesas;
+import VistasInternas.ListadoInternalMesas;
 import VistasInternas.ListadoInternalMozos;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -52,6 +53,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -172,6 +174,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem4);
 
+        jMenuItem6.setText("Listado Mesas");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem6);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -214,6 +224,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
         internalMesas.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+
+        ListadoInternalMesas listadoMesas = new ListadoInternalMesas();
+        escritorio.add(listadoMesas);
+        listadoMesas.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,6 +285,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
