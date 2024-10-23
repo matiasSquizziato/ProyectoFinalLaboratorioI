@@ -5,7 +5,9 @@
         <group>
             <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/AccesoADatos/MesaData.java</file>
             <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/InternalAdminMozos.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/ListadoInternalMozos.java</file>
             <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/Vistas/VistaPrincipal.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/ListadoInternalMesas.java</file>
             <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/InternalMesas.java</file>
         </group>
     </open-files>

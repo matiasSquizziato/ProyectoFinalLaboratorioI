@@ -51,14 +51,52 @@ public class ProductoData {
             ps.close();
             
         } catch (SQLException ex) {
-JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla producto " +ex.getMessage());
+                JOptionPane.showMessageDialog(null, "No se pudo ingresar a la tabla producto " +ex.getMessage());
         }
-        
-        
-        
+   
     }
     
-    
+    public Producto buscarProductoCd(int codigo){
+        
+        String sql = "SELECT id_producto, nombre, cantidad, precio, codigo FROM producto WHERE codigo = ?";
+        
+        
+        Producto producto = null;
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, codigo);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                
+                producto = new Producto();
+                
+                producto.setIdProducto(rs.getInt("id_producto"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setCantidad(rs.getInt("cantidad"));
+                producto.setPrecio(rs.getDouble("precio"));
+                 producto.setCodigo(rs.getInt("codigo"));
+                
+                producto.setEstado(true);
+               
+                
+            } else {
+                
+                JOptionPane.showMessageDialog(null, "NO HAY PRODUCTO CON ESE CODIGO: " + codigo);
+                
+            }
+            
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return producto;
+        
+    }
     
     
 }

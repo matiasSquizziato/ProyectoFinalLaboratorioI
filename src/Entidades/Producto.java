@@ -27,6 +27,10 @@ public class Producto {
         this.estado = estado;
     }
 
+    public Producto() {
+    }
+
+    
 
 
     public int getIdProducto() {
