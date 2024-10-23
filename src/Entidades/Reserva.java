@@ -13,7 +13,7 @@ public class Reserva {
     private LocalTime horaReserva;
     private boolean estado;
 
-    public Reserva(int idReserva, Mesa mesa, String nombreCliente, int dniCliente, LocalDate fechaReserva, LocalTime horaReserva, boolean estado) {
+    public Reserva(int idReserva, int dniCliente, String nombreCliente, String dniCliente1, String fechaReserva, String horaReserva, String estado) {
         this.idReserva = idReserva;
         this.mesa = mesa;
         this.nombreCliente = nombreCliente;

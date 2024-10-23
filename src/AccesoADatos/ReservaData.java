@@ -82,6 +82,39 @@ public class ReservaData {
             e.printStackTrace();
             return false;
         }
-    }  
+    }
+           public Reserva buscarReserva(int idReserva) {
+        String sql = "SELECT * FROM reservas WHERE idReserva = ?";
+        Reserva reserva = null;
+
+        try (PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, idReserva);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            // Si encuentra la reserva, se llenan los datos en el objeto Reserva
+            if (rs.next()) {
+                int idMesa = rs.getInt("idMesa");
+                String nombreCliente = rs.getString("nombreCliente");
+                String dniCliente = rs.getString("dniCliente");
+                String fechaReserva = rs.getDate("fechaReserva").toString();
+                String horaReserva = rs.getTime("horaReserva").toString();
+                String estado = rs.getString("estado");
+
+                // Crear objeto Reserva con los datos obtenidos
+                reserva = new Reserva(idMesa, idReserva, nombreCliente, dniCliente, fechaReserva, horaReserva, estado);
+                System.out.println("Reserva encontrada: " + reserva.getNombreCliente());
+            } else {
+                System.out.println("No se encontró la reserva con ID: " + idReserva);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al buscar la reserva.");
+            e.printStackTrace();
+        }
+
+        return reserva;  // Retorna el objeto Reserva o null si no se encontró
+    }
+         }
     }
     
