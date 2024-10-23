@@ -1,5 +1,6 @@
 package AccesoADatos;
 
+import Entidades.Mesa;
 import Entidades.Reserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,8 +55,33 @@ public class ReservaData {
           JOptionPane.showMessageDialog(null,"Error al ingresar a la tabla: " + reserva + ex.getMessage());
         }
 
-        
-        
+
+     }   
+         public boolean modificarReserva(Reserva reserva, Mesa mesa, int idMesa) {
+        String sql = "UPDATE reservas SET nombre_cliente = ?, dni_cliente = ?, fecha_reserva = ?, hora_reserva = ?, estado = ? WHERE id_reserva = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, idMesa);
+            ps.setInt(2, reserva.getDniCliente());
+            ps.setDate(3, Date.valueOf(reserva.getFechaReserva()));
+            ps.setTime(4, Time.valueOf(reserva.getHoraReserva()));
+            ps.setBoolean(5, reserva.isEstado());
+            ps.setInt(6, reserva.getIdReserva());
+
+            int filasAfectadas = ps.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Reserva modificada con éxito.");
+                return true;
+            } else {
+                System.out.println("No se encontró la reserva con el ID especificado.");
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al modificar la reserva.");
+            e.printStackTrace();
+            return false;
+        }
+    }  
     }
     
-}
