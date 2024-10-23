@@ -25,9 +25,11 @@ public class ProductoData {
         con = ConexionData.getConexion();
     }
     
+    
+    //cargarProductos
     public void cargarProducto(Producto producto){
         
-        String sql = "INSERT INTO producto(codigo, nombre, cantidad,precio) VALUES (?,?,?,?)"; 
+        String sql = "INSERT INTO producto(codigo, nombre, cantidad,precio,estado) VALUES (?,?,?,?,?)"; 
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -36,6 +38,7 @@ public class ProductoData {
             ps.setString(2, producto.getNombre());
             ps.setInt(3, producto.getCantidad());
             ps.setDouble(4, producto.getPrecio());
+            ps.setBoolean(5, producto.isEstado());
             
             
             ps.executeUpdate();
@@ -56,6 +59,7 @@ public class ProductoData {
    
     }
     
+    //busco producto por codigo
     public Producto buscarProductoCd(int codigo){
         
         String sql = "SELECT id_producto, nombre, cantidad, precio, codigo FROM producto WHERE codigo = ?";
@@ -97,6 +101,38 @@ public class ProductoData {
         return producto;
         
     }
+    
+    //Modificar un producto
+    
+    public void modificarProducto(Producto producto){
+        
+        String sql = "UPDATE producto SET codigo = ?, nombre = ?, cantidad = ?, precio = ?, estado = ? WHERE id_producto = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, producto.getCodigo());
+            ps.setString(2, producto.getNombre());
+            ps.setInt(3, producto.getCantidad());
+            ps.setDouble(4, producto.getPrecio());
+            ps.setBoolean(5, producto.isEstado());
+            ps.setInt(6, producto.getIdProducto());
+            
+            int exito = ps.executeUpdate();
+            
+            if (exito == 1 ) {
+                
+                JOptionPane.showMessageDialog(null, "Producto: " + producto.getNombre() + ", codigo:  " + producto.getCodigo()+ ", modificado correctamente" );
+            }
+            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "NO SE PUDO ACCEDER A LA TABLA PRODUCTO" + producto);
+        }
+        
+        
+    }
+    
     
     
 }
