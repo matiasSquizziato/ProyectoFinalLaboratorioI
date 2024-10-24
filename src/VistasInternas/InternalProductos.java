@@ -48,7 +48,7 @@ public class InternalProductos extends javax.swing.JInternalFrame {
         txCantidad = new javax.swing.JTextField();
         cbxEstado = new javax.swing.JCheckBox();
         btBuscar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btNuevo = new javax.swing.JButton();
         btGuardar = new javax.swing.JButton();
         btSalir = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
@@ -77,10 +77,20 @@ public class InternalProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Nuevo");
-        jButton1.setToolTipText("");
+        btNuevo.setText("Nuevo");
+        btNuevo.setToolTipText("");
+        btNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevoActionPerformed(evt);
+            }
+        });
 
         btGuardar.setText("Guardar");
+        btGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarActionPerformed(evt);
+            }
+        });
 
         btSalir.setText("Salir");
         btSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +122,7 @@ public class InternalProductos extends javax.swing.JInternalFrame {
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btGuardar))
                     .addGroup(layout.createSequentialGroup()
@@ -173,7 +183,7 @@ public class InternalProductos extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btNuevo)
                     .addComponent(btGuardar)
                     .addComponent(btSalir))
                 .addGap(0, 65, Short.MAX_VALUE))
@@ -212,13 +222,67 @@ dispose();        // TODO add your handling code here:
 
     }//GEN-LAST:event_btBuscarActionPerformed
 
+    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
+
+        try{
+        
+        Integer codSel = Integer.parseInt(txCodigo.getText());
+        
+        String nombreSel = txNombre.getText();
+        double precioSel = Double.parseDouble(txPrecio.getText());
+        Integer cantiSel = Integer.parseInt(txCantidad.getText());
+        boolean estadoSel = cbxEstado.isSelected();
+        
+            if (nombreSel.isEmpty()) {
+                
+                JOptionPane.showMessageDialog(null, "NO DEBE DEJAR ESPACIOS EN BLANCO");
+                return;
+                
+            }
+        
+            Producto producto = null;
+        
+            if (productoActual == null) {
+                
+                producto = new Producto(codSel, nombreSel, cantiSel, precioSel, estadoSel);
+                proData.cargarProducto(producto);
+                
+            } else {
+                
+                producto  = productoActual;
+                
+                producto.setCodigo(codSel);
+                producto.setNombre(nombreSel);
+                producto.setCantidad(cantiSel);
+                producto.setPrecio(precioSel);
+                producto.setEstado(estadoSel);
+                
+                proData.modificarProducto(producto);
+                
+            }
+        
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "DEBE INGRESAR UN NUMERO VALIDO" + ex.getMessage());
+
+        }
+  
+
+    }//GEN-LAST:event_btGuardarActionPerformed
+
+    private void btNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevoActionPerformed
+        
+        limpiarCampos();
+        productoActual = null;
+
+    }//GEN-LAST:event_btNuevoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton btGuardar;
+    private javax.swing.JButton btNuevo;
     private javax.swing.JButton btSalir;
     private javax.swing.JCheckBox cbxEstado;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -233,4 +297,15 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JTextField txNombre;
     private javax.swing.JTextField txPrecio;
     // End of variables declaration//GEN-END:variables
+
+    public void limpiarCampos(){
+        
+        txCodigo.setText("");
+        txNombre.setText("");
+        txPrecio.setText("");
+        txCantidad.setText("");
+        
+    }
+
+
 }

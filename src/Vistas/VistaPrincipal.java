@@ -48,14 +48,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        MenuMozos = new javax.swing.JMenuItem();
+        MenuProductos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        MenuReservas = new javax.swing.JMenuItem();
+        MenuMesas = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        MenuListMozos = new javax.swing.JMenuItem();
+        MenuListMesas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,57 +137,57 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Administrar");
 
-        jMenuItem1.setText("Manejo Mozos");
-        jMenuItem1.setActionCommand("");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        MenuMozos.setText("Manejo Mozos");
+        MenuMozos.setActionCommand("");
+        MenuMozos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                MenuMozosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(MenuMozos);
 
-        jMenuItem3.setText("Productos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        MenuProductos.setText("Productos");
+        MenuProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                MenuProductosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(MenuProductos);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Salon");
 
-        jMenuItem2.setText("Reservas");
-        jMenu2.add(jMenuItem2);
+        MenuReservas.setText("Reservas");
+        jMenu2.add(MenuReservas);
 
-        jMenuItem5.setText("Mesas");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        MenuMesas.setText("Mesas");
+        MenuMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                MenuMesasActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        jMenu2.add(MenuMesas);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Listados");
 
-        jMenuItem4.setText("Listado Mozos");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        MenuListMozos.setText("Listado Mozos");
+        MenuListMozos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                MenuListMozosActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem4);
+        jMenu3.add(MenuListMozos);
 
-        jMenuItem6.setText("Listado Mesas");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        MenuListMesas.setText("Listado Mesas");
+        MenuListMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                MenuListMesasActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem6);
+        jMenu3.add(MenuListMesas);
 
         jMenuBar1.add(jMenu3);
 
@@ -207,47 +207,47 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void MenuMozosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuMozosActionPerformed
 
         InternalAdminMozos internalMozos = new InternalAdminMozos();
         escritorio.add(internalMozos);
         internalMozos.setVisible(true);
         
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_MenuMozosActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void MenuListMozosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListMozosActionPerformed
 
         ListadoInternalMozos listadoMozos = new ListadoInternalMozos();
         escritorio.add(listadoMozos);
         listadoMozos.setVisible(true);
 
 
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_MenuListMozosActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void MenuMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuMesasActionPerformed
 
         InternalMesas internalMesas = new InternalMesas();
         escritorio.add(internalMesas);
         internalMesas.setVisible(true);
 
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_MenuMesasActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void MenuListMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListMesasActionPerformed
 
         ListadoInternalMesas listadoMesas = new ListadoInternalMesas();
         escritorio.add(listadoMesas);
         listadoMesas.setVisible(true);
         
         
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_MenuListMesasActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void MenuProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuProductosActionPerformed
 
         InternalProductos internalProductos = new InternalProductos();
         escritorio.add(internalProductos);
         internalProductos.setVisible(true);
 
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_MenuProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,6 +285,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuListMesas;
+    private javax.swing.JMenuItem MenuListMozos;
+    private javax.swing.JMenuItem MenuMesas;
+    private javax.swing.JMenuItem MenuMozos;
+    private javax.swing.JMenuItem MenuProductos;
+    private javax.swing.JMenuItem MenuReservas;
     private com.toedter.calendar.JDateChooser dateC;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton jButton1;
@@ -295,12 +301,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private com.toedter.components.JSpinField jSpinField1;
