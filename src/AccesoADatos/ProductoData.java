@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -133,6 +135,72 @@ public class ProductoData {
         
     }
     
+    //Listado de producto que tienen poco stock
+    public List<Producto> listarProductosMenores(){
+        
+        String sql = "SELECT * FROM producto WHERE cantidad < 5";
+        
+        
+        ArrayList <Producto> listaProductosM = new ArrayList<>();
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                
+                Producto producto = new Producto();
+                producto.setIdProducto(rs.getInt("id_producto"));
+                producto.setCodigo(rs.getInt("codigo"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setCantidad(rs.getInt("cantidad"));
+                producto.setEstado(true);
+                
+                listaProductosM.add(producto);
+            }
+            ps.close();
+            
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "NO SE PUDO ACCEDER A LA TABLA PRODUCTO" + ex.getMessage());
+        }
+        
+        return listaProductosM;
+        
+    }
     
+     //Listado de productos
+    public List<Producto> listarProductos(){
+        
+        String sql = "SELECT * FROM producto WHERE estado = 1";
+        
+        
+        ArrayList <Producto> listaProductos = new ArrayList<>();
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                
+                Producto producto = new Producto();
+                producto.setIdProducto(rs.getInt("id_producto"));
+                producto.setCodigo(rs.getInt("codigo"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setCantidad(rs.getInt("cantidad"));
+                producto.setEstado(true);
+                
+                listaProductos.add(producto);
+            }
+            ps.close();
+            
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "NO SE PUDO ACCEDER A LA TABLA PRODUCTO" + ex.getMessage());
+        }
+        
+        return listaProductos;
+        
+    }
     
 }

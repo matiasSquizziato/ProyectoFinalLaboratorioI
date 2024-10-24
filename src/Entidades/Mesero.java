@@ -74,7 +74,5 @@ public class Mesero {
         return "Mesero{" + "idMesero=" + idMesero + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", estado=" + estado + '}';
     }
 
-    
-    
   
 }

@@ -4,6 +4,9 @@
  */
 package Vistas;
 
+import AccesoADatos.ProductoData;
+import Entidades.Producto;
+import LoginMozo.InternalLoginMozo;
 import VistasInternas.InternalAdminMozos;
 import VistasInternas.InternalMesas;
 import VistasInternas.InternalProductos;
@@ -12,12 +15,17 @@ import VistasInternas.ListadoInternalMozos;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author matiSqui
  */
 public class VistaPrincipal extends javax.swing.JFrame {
+    private DefaultTableModel modelo = new DefaultTableModel();
+    ProductoData proData = new ProductoData();
+
+    
 
     /**
      * Creates new form VistaPrincipal
@@ -25,6 +33,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public VistaPrincipal() {
         initComponents();
         setHoraActual();
+        armarCabecera();
+        mostrarProductos();
     }
 
     /**
@@ -44,8 +54,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         dateC = new com.toedter.calendar.JDateChooser();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        btActualizar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        btIniciar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuMozos = new javax.swing.JMenuItem();
@@ -56,6 +69,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         MenuListMozos = new javax.swing.JMenuItem();
         MenuListMesas = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,17 +91,35 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Productos");
 
-        jButton1.setText("Actualizar");
+        btActualizar.setText("Actualizar");
+        btActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btActualizarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Productos que tienen poca cantidad.");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("HOY ES:");
+
+        btIniciar.setText("Iniciar");
+        btIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIniciarActionPerformed(evt);
+            }
+        });
 
         escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(dateC, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jSeparator1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btActualizar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jSeparator2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btIniciar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -95,20 +127,28 @@ public class VistaPrincipal extends javax.swing.JFrame {
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(escritorioLayout.createSequentialGroup()
-                            .addComponent(jLabel2)
+                            .addGap(45, 45, 45)
+                            .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(escritorioLayout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addComponent(jSeparator2)
+                                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(escritorioLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btActualizar))
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel3)))
+                        .addGap(126, 126, 126)
+                        .addComponent(btIniciar)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
@@ -117,17 +157,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(38, 38, 38)
+                        .addComponent(btIniciar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                         .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btActualizar))
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel3)
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))
                     .addComponent(jLabel1))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -189,6 +236,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(MenuListMesas);
 
+        jMenuItem1.setText("Listado Productos");
+        jMenu3.add(jMenuItem1);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -197,11 +247,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(escritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -249,6 +299,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MenuProductosActionPerformed
 
+    private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
+        
+        mostrarProductos();
+
+
+    }//GEN-LAST:event_btActualizarActionPerformed
+
+    private void btIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarActionPerformed
+
+        InternalLoginMozo internalLogin = new InternalLoginMozo();
+        escritorio.add(internalLogin);
+        internalLogin.setVisible(true);
+
+    }//GEN-LAST:event_btIniciarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -291,18 +356,22 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuMozos;
     private javax.swing.JMenuItem MenuProductos;
     private javax.swing.JMenuItem MenuReservas;
+    private javax.swing.JButton btActualizar;
+    private javax.swing.JButton btIniciar;
     private com.toedter.calendar.JDateChooser dateC;
     private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
@@ -315,5 +384,35 @@ public void setHoraActual(){
     dateC.setDate(date);
     
 }
+
+public void armarCabecera(){
+    
+    modelo.addColumn("codigo");
+    modelo.addColumn("nombre");
+    modelo.addColumn("stock");
+    
+    jTable1.setModel(modelo);
+    
+}
+
+public void mostrarProductos(){
+    
+    
+    modelo.setRowCount(0);
+    
+    for (Producto producto : proData.listarProductosMenores()) {
+        
+        Object [] fila = new Object[3];
+        
+        fila[0] = producto.getCodigo();
+        fila[1] = producto.getNombre();
+        fila[2] = producto.getCantidad();
+        
+        modelo.addRow(fila);
+        
+    }
+    
+}
+
 
 }

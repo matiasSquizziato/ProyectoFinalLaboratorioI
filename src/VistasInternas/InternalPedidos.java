@@ -39,6 +39,7 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
         cbxEstado = new javax.swing.JCheckBox();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         btBuscar = new javax.swing.JButton();
+        labelMozo = new javax.swing.JLabel();
 
         getContentPane().setLayout(null);
 
@@ -79,6 +80,10 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
         getContentPane().add(btBuscar);
         btBuscar.setBounds(410, 180, 72, 23);
 
+        labelMozo.setText("USUARIOI: ");
+        getContentPane().add(labelMozo);
+        labelMozo.setBounds(70, 440, 110, 16);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -94,5 +99,6 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel labelMozo;
     // End of variables declaration//GEN-END:variables
 }
