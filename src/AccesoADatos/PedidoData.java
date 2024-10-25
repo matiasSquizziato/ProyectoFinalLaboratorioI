@@ -58,7 +58,7 @@ public class PedidoData {
             }
             
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla pedido");
+           JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla pedido"+ex);
         }
         
         

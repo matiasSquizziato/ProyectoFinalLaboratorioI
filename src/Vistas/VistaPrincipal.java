@@ -6,6 +6,7 @@ package Vistas;
 
 import VistasInternas.InternalAdminMozos;
 import VistasInternas.InternalMesas;
+import VistasInternas.InternalPedidos;
 import VistasInternas.InternalProductos;
 import VistasInternas.ListadoInternalMesas;
 import VistasInternas.ListadoInternalMozos;
@@ -53,6 +54,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMIPedidos = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -169,6 +171,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem5);
 
+        jMIPedidos.setText("Pedidos");
+        jMIPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIPedidosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMIPedidos);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Listados");
@@ -249,6 +259,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMIPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIPedidosActionPerformed
+        
+        InternalPedidos internalPedidos = new InternalPedidos();
+        escritorio.add(internalPedidos);
+        //internalPedidos.pack();
+        internalPedidos.setVisible(true);
+    }//GEN-LAST:event_jMIPedidosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -291,6 +309,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenuItem jMIPedidos;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

@@ -62,6 +62,11 @@ public class Mesa {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "Mesa:" + numeroMesa + ", capacidad: " + capacidad;
+    }
+
     
    
 
