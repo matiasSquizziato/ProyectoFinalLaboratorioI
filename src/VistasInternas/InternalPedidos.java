@@ -4,8 +4,13 @@
  */
 package VistasInternas;
 
+import AccesoADatos.MesaData;
+import AccesoADatos.MozoData;
+import AccesoADatos.PedidoData;
 import Entidades.Mesa;
 import Entidades.Mesero;
+import Entidades.Pedido;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,11 +18,31 @@ import Entidades.Mesero;
  */
 public class InternalPedidos extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form InternalPedidos
-     */
+    //ArrayList
+    private ArrayList<Mesero> listaMesero;
+    private ArrayList<Mesa> listaMesa;
+
+    //Acceso a datos
+    private PedidoData pedidoData;
+    private Pedido pedidoActual;
+    private MesaData mesaData;
+    private MozoData mozoData;
+    
+    
     public InternalPedidos() {
         initComponents();
+        
+        pedidoData = new PedidoData();
+        pedidoActual = null;
+        
+        mesaData = new MesaData();
+        mozoData = new MozoData();
+        
+        listaMesa = (ArrayList<Mesa>) mesaData.listadoMesasaA();
+        listaMesero = (ArrayList<Mesero>) mozoData.listarMozosActivos();
+        
+        cargarJComboBoxMesero();
+        cargarJComboBoxMesa();
     }
 
     /**
@@ -39,8 +64,12 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
         cbxEstado = new javax.swing.JCheckBox();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         btBuscar = new javax.swing.JButton();
-        labelMozo = new javax.swing.JLabel();
 
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         getContentPane().setLayout(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/manejoPedidos.PNG"))); // NOI18N
@@ -63,6 +92,11 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(73, 350, 68, 16);
 
+        cbMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMesaActionPerformed(evt);
+            }
+        });
         getContentPane().add(cbMesa);
         cbMesa.setBounds(184, 181, 194, 22);
 
@@ -80,16 +114,23 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
         getContentPane().add(btBuscar);
         btBuscar.setBounds(410, 180, 72, 23);
 
-        labelMozo.setText("USUARIOI: ");
-        getContentPane().add(labelMozo);
-        labelMozo.setBounds(70, 440, 110, 16);
+
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesaActionPerformed
+        
+    }//GEN-LAST:event_cbMesaActionPerformed
+
+    private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
+        dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btSalir;
     private javax.swing.JComboBox<Mesa> cbMesa;
     private javax.swing.JComboBox<Mesero> cbMesero;
     private javax.swing.JCheckBox cbxEstado;
@@ -101,4 +142,18 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel labelMozo;
     // End of variables declaration//GEN-END:variables
+
+    //Cargar el jComboBox mesero
+    public void cargarJComboBoxMesero(){
+        for (Mesero mesero : listaMesero){
+            cbMesero.addItem(mesero);
+        }
+    }
+    
+    //Cargar el jComboBox mesa
+    public void cargarJComboBoxMesa(){
+        for (Mesa mesa : listaMesa){
+            cbMesa.addItem(mesa);
+        }
+    }
 }
