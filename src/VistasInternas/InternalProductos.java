@@ -5,7 +5,9 @@
 package VistasInternas;
 
 import AccesoADatos.ProductoData;
+import Entidades.Mesero;
 import Entidades.Producto;
+import LoginMozo.LoginMozo;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +25,8 @@ public class InternalProductos extends javax.swing.JInternalFrame {
      */
     public InternalProductos() {
         initComponents();
+        usuarioLog();
+        
     }
 
     /**
@@ -52,6 +56,7 @@ public class InternalProductos extends javax.swing.JInternalFrame {
         btGuardar = new javax.swing.JButton();
         btSalir = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        labelUsuarios = new javax.swing.JLabel();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/manejoProductos.PNG"))); // NOI18N
 
@@ -99,25 +104,12 @@ public class InternalProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        labelUsuarios.setText("USUARIO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(15, 15, 15)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -148,6 +140,24 @@ public class InternalProductos extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btSalir)
                         .addGap(59, 59, 59))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(15, 15, 15)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(labelUsuarios)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +196,9 @@ public class InternalProductos extends javax.swing.JInternalFrame {
                     .addComponent(btNuevo)
                     .addComponent(btGuardar)
                     .addComponent(btSalir))
-                .addGap(0, 65, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(labelUsuarios)
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -292,6 +304,7 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel labelUsuarios;
     private javax.swing.JTextField txCantidad;
     private javax.swing.JTextField txCodigo;
     private javax.swing.JTextField txNombre;
@@ -307,5 +320,12 @@ dispose();        // TODO add your handling code here:
         
     }
 
-
+public void usuarioLog(){
+    
+    Mesero mozo = LoginMozo.getMeseroActual();
+    
+    
+    labelUsuarios.setText(mozo.toString());
+    
+}
 }

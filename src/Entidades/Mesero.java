@@ -74,7 +74,5 @@ public class Mesero {
         return "Mesero: " + nombre + ", " + apellido +  estado;
     }
 
-    
-    
   
 }

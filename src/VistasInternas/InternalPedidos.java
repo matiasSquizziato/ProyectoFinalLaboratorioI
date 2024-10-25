@@ -64,7 +64,7 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
         cbxEstado = new javax.swing.JCheckBox();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         btBuscar = new javax.swing.JButton();
-        btSalir = new javax.swing.JButton();
+
 
         setClosable(true);
         setIconifiable(true);
@@ -114,14 +114,7 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
         getContentPane().add(btBuscar);
         btBuscar.setBounds(410, 180, 72, 23);
 
-        btSalir.setText("Salir");
-        btSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalirActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btSalir);
-        btSalir.setBounds(410, 410, 72, 23);
+
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,6 +140,7 @@ public class InternalPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel labelMozo;
     // End of variables declaration//GEN-END:variables
 
     //Cargar el jComboBox mesero
