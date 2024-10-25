@@ -71,7 +71,7 @@ public class Mesero {
 
     @Override
     public String toString() {
-        return "Mesero: " + nombre + ", " + apellido +  estado;
+        return "" + nombre + ", " + apellido;
     }
 
   
