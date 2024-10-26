@@ -83,6 +83,11 @@ public class Pedido {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return  "id" + idPedido;
+    }
+
    
     
     

@@ -154,6 +154,26 @@ public  Mesa buscarMesaId(int idMesa) {
         } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null, "Error al ingrear a la tabla mesa: " + ex.getMessage());
         }
+     
+    }
+    
+    //modificar el estado de una mesa
+    public void modificarEstado(Mesa mesa){
+         String sql = "UPDATE mesa SET estado = ? WHERE id_mesa=?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setBoolean(1, !mesa.isEstado());
+            ps.setInt(2, mesa.getIdMesa());
+            
+           ps.executeUpdate();
+            
+            
+            
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error al ingrear a la tabla mesa: " + ex.getMessage());
+        }
         
         
     }

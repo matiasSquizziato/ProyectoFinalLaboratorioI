@@ -65,6 +65,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btIniciar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        btSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuMozos = new javax.swing.JMenuItem();
@@ -126,6 +127,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Manejo de la sesion.");
 
+        btSalir.setText("Salir");
+        btSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalirActionPerformed(evt);
+            }
+        });
+
         escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -137,6 +145,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         escritorio.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btIniciar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btSalir, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -182,6 +191,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
                                         .addGap(36, 36, 36)
                                         .addComponent(btActualizar)))))
                         .addContainerGap(46, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btSalir)
+                .addContainerGap())
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,7 +219,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btSalir)
+                .addContainerGap())
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(0, 119, Short.MAX_VALUE))
@@ -377,6 +392,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_MenuPedidosActionPerformed
 
+    private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
+dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btSalirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -422,6 +441,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuReservas;
     private javax.swing.JButton btActualizar;
     private javax.swing.JButton btIniciar;
+    private javax.swing.JButton btSalir;
     private com.toedter.calendar.JDateChooser dateC;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel jLabel1;
