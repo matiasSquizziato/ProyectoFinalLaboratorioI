@@ -36,7 +36,7 @@ public class PedidoData {
         
     }
     
-    
+    //cargarPedidos
     public void cargarPedido(Pedido pedido, Mesa mesa, Mesero mesero){
       
         String sql = "INSERT INTO pedido(id_mesa, id_mesero, estado, fecha_pedido) VALUES (?,?,?,?)";
@@ -66,7 +66,51 @@ public class PedidoData {
  
     }
 
-    //listar pedidos
+    //Buscar pedido por id
+    
+    public  Pedido buscarPedidoId(int id){
+        
+        String sql= "SELECT * FROM pedido WHERE id_pedido = ?";
+        
+        Pedido pedido = null;
+        
+         try {
+            PreparedStatement ps = con.prepareStatement(sql);
+           
+            ps.setInt(1,id);
+            
+           ResultSet rs = ps.executeQuery();
+           
+             if (rs.next()) {
+                 
+                pedido = new Pedido();
+                 
+                pedido.setIdPedido(rs.getInt("id_pedido"));
+                pedido.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+                pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));   
+                pedido.setEstado(true);
+                pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
+                   
+             } else {
+                 
+             JOptionPane.showMessageDialog(null, "no existe ese pedido con ese id:  " + id);
+
+                 
+             }
+           
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pedido: " + ex.getMessage());
+        }
+                
+                
+         return pedido;
+        
+    }
+    
+    
+    
+    
+    //listar pedidos por id
     public List<Pedido> listarPedidoId(int id){
         
         String sql = "SELECT * FROM pedido WHERE id_mesero = ?";
@@ -101,10 +145,74 @@ public class PedidoData {
         } catch (SQLException ex) {
             Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-   
+       
      return pedidosId;   
         
     }
     
+    //listar todos los pedidos
+     public List<Pedido> listarPedido(){
+        
+        String sql = "SELECT * FROM pedido";
+        
+        ArrayList pedidosAll = new ArrayList<>();
+        
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            
+              
+               
+               ResultSet rs = ps.executeQuery();
+               
+               while (rs.next()) {
+                
+                   Pedido pedido = new Pedido();
+                   pedido.setIdPedido(rs.getInt("id_pedido"));
+                   pedido.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+                   pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));
+                   pedido.setEstado(true);
+                   pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
+                   
+                   pedidosAll.add(pedido);
+                   
+               }
+               
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+     return pedidosAll;   
+        
+    }
+    
+    //modificar pedido
+     public void modificarPedido(Pedido pedido){
+         
+         System.out.println("estoy aqui pedido: " + pedido);
+              String sql = "UPDATE pedido SET id_mesa=?, id_mesero=?, estado=?, fecha_pedido=? WHERE id_pedido=?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setBoolean(1, !pedido.isEstado());
+            ps.setInt(2, pedido.getIdPedido());
+            ps.setInt(3, pedido.getMesa().getIdMesa());
+            ps.setInt(4, pedido.getMesero().getIdMesero());
+            ps.setBoolean(5, pedido.isEstado());
+            ps.setDate(6, Date.valueOf(pedido.getFechaPedido()));
+            
+           ps.executeUpdate();
+            
+            
+            
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error al ingrear a la tabla pedido: " + ex.getMessage());
+        }
+         
+         
+     }
+     
+     
 }
