@@ -26,9 +26,8 @@ public class LoginMozo {
 
     public static void setMeseroActual(Mesero meseroActual) {
         LoginMozo.meseroActual = meseroActual;
+        
     }
     
-    
-    
-    
+
 }

@@ -95,6 +95,38 @@ public class MesaData {
         
     }
     
+    // Buscar mesa por ID
+public  Mesa buscarMesaId(int idMesa) {
+    String sql = "SELECT id_mesa, numero_mesa, capacidad, estado FROM mesa WHERE id_mesa = ?";
+    
+    Mesa mesaActual = null;
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idMesa);
+        
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            mesaActual = new Mesa();
+            mesaActual.setIdMesa(rs.getInt("id_mesa"));
+            mesaActual.setCapacidad(rs.getInt("capacidad"));
+            mesaActual.setEstado(rs.getBoolean("estado"));
+            mesaActual.setNumeroMesa(rs.getInt("numero_mesa"));
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay mesas con ese ID: " + idMesa);
+        }
+        ps.close();
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla mesa: " + ex.getMessage());
+    }
+
+    return mesaActual;
+}
+    
+    
+    
     //Modificar una mesa
     public void modificarMesa(Mesa mesa){
         
@@ -198,5 +230,41 @@ public class MesaData {
         
     }
     
+    //listado de todas las mesas
+    
+      public List<Mesa> listadoMesasaAll(){
+        
+        String sql = "SELECT * FROM mesa"; 
+        
+        
+        ArrayList <Mesa> listaMesasAll = new ArrayList<>();
+        
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                
+                Mesa mesa = new Mesa();
+                
+                mesa.setIdMesa(rs.getInt("id_mesa"));
+                mesa.setNumeroMesa(rs.getInt("numero_mesa"));
+                mesa.setCapacidad(rs.getInt("capacidad"));
+                mesa.setEstado(true);
+             
+                listaMesasAll.add(mesa);
+                
+            }
+            ps.close();
+            
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error al ingrear a la tabla mesa: " + ex.getMessage());
+        }
+        
+        
+        return listaMesasAll;
+        
+    }
     
 }

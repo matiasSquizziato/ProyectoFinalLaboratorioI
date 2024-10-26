@@ -3,23 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/VistasInternas/InternalAdminMozos.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/AccesoADatos/ReservaData.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/Entidades/Mesero.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/Vistas/VistaPrincipal.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/VistasInternas/InternalPedidos.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/Vistas/ProyectoFinalLaboratorio.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/Vistas/TestGonzalo.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/Entidades/Mesa.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/Entidades/Reserva.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/AccesoADatos/PedidoData.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/VistasInternas/ListadoInternalMozos.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/LoginMozo/InternalLoginMozo.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/AccesoADatos/MozoData.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/Entidades/Producto.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/VistasInternas/InternalMesas.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/VistasInternas/InternalProductos.java</file>
-            <file>file:/F:/Gonza/Formación/TUDS/4to%20Cuatri/Lab%20de%20Prog/Proyecto%20final/ProyectoFinalLaboratorioI/src/VistasInternas/ListadoInternalMesas.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/InternalPedidos2.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/AccesoADatos/PedidoData.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/AccesoADatos/MesaData.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/Entidades/Pedido.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/LoginMozo/InternalLoginMozo.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/Vistas/VistaPrincipal.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/AccesoADatos/MozoData.java</file>
         </group>
     </open-files>
 </project-private>

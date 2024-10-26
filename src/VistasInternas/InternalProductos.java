@@ -25,7 +25,7 @@ public class InternalProductos extends javax.swing.JInternalFrame {
      */
     public InternalProductos() {
         initComponents();
-        usuarioLog();
+
         
     }
 
@@ -56,7 +56,6 @@ public class InternalProductos extends javax.swing.JInternalFrame {
         btGuardar = new javax.swing.JButton();
         btSalir = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        labelUsuarios = new javax.swing.JLabel();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/manejoProductos.PNG"))); // NOI18N
 
@@ -103,8 +102,6 @@ public class InternalProductos extends javax.swing.JInternalFrame {
                 btSalirActionPerformed(evt);
             }
         });
-
-        labelUsuarios.setText("USUARIO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,10 +150,7 @@ public class InternalProductos extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel2)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(6, 6, 6)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(labelUsuarios)))
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -196,9 +190,7 @@ public class InternalProductos extends javax.swing.JInternalFrame {
                     .addComponent(btNuevo)
                     .addComponent(btGuardar)
                     .addComponent(btSalir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(labelUsuarios)
-                .addGap(19, 19, 19))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
@@ -304,7 +296,6 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel labelUsuarios;
     private javax.swing.JTextField txCantidad;
     private javax.swing.JTextField txCodigo;
     private javax.swing.JTextField txNombre;
@@ -320,12 +311,4 @@ dispose();        // TODO add your handling code here:
         
     }
 
-public void usuarioLog(){
-    
-    Mesero mozo = LoginMozo.getMeseroActual();
-    
-    
-    labelUsuarios.setText(mozo.toString());
-    
-}
 }

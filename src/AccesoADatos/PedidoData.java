@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,6 +24,8 @@ import javax.swing.JOptionPane;
 public class PedidoData {
     
     private Connection con = null;
+    private MesaData meData = new MesaData();
+    private MozoData moData = new MozoData();
     
     public PedidoData(){
         
@@ -34,8 +38,7 @@ public class PedidoData {
     
     
     public void cargarPedido(Pedido pedido, Mesa mesa, Mesero mesero){
-        
-        
+      
         String sql = "INSERT INTO pedido(id_mesa, id_mesero, estado, fecha_pedido) VALUES (?,?,?,?)";
         
         
@@ -60,9 +63,47 @@ public class PedidoData {
         } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla pedido"+ex);
         }
+ 
+    }
+
+    //listar pedidos
+    public List<Pedido> listarPedidoId(int id){
         
+        String sql = "SELECT * FROM pedido WHERE id_mesero = ?";
         
+        ArrayList pedidosId = new ArrayList<>();
         
+        System.out.println(id);
+        
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            
+               ps.setInt(1, id);
+               
+               ResultSet rs = ps.executeQuery();
+               
+               while (rs.next()) {
+                
+                   Pedido pedido = new Pedido();
+                   pedido.setIdPedido(rs.getInt("id_pedido"));
+                   pedido.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+                   pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));
+                   
+                   pedido.setEstado(true);
+                   pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
+                   
+                   pedidosId.add(pedido);
+                   
+               }
+               
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+   
+     return pedidosId;   
         
     }
     

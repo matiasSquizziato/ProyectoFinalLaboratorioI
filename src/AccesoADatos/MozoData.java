@@ -155,7 +155,7 @@ public class MozoData {
                 mozo.setIdMesero(rs.getInt("id_mesero"));
                 mozo.setNombre(rs.getString("nombre"));
                 mozo.setApellido(rs.getString("apellido"));
-                mozo.setIdMesero(rs.getInt("dni"));
+                mozo.setDni(rs.getInt("dni"));
                 mozo.setEstado(true);
 
             } else {
@@ -169,7 +169,7 @@ public class MozoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"NO SE PUDO CONECTAR A LA TABLA MESERO" + ex.getMessage());
         }
-        
+          
         return mozo;
     }
     

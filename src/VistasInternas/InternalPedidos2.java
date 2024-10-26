@@ -5,12 +5,17 @@
 package VistasInternas;
 
 import AccesoADatos.MesaData;
+import AccesoADatos.MozoData;
+import AccesoADatos.PedidoData;
 import Entidades.Mesa;
 import Entidades.Mesero;
+import Entidades.Pedido;
 import LoginMozo.LoginMozo;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,7 +26,11 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo = new DefaultTableModel();
     
     private MesaData meData = new MesaData();
-//    private Mesa mesa = null;
+    private PedidoData pedidoData = new PedidoData();
+    private MozoData mozoData = new MozoData();
+    private Mesero mozoSel = null;
+    Pedido pedidoActual = null;
+
     
     
     /**
@@ -32,6 +41,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         cargarJcbMesa();
         usuarioLog();
         setFecha();
+      
     }
 
     /**
@@ -50,7 +60,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txIdMozo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        cbEstado = new javax.swing.JCheckBox();
         labelEstado = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         dateC = new com.toedter.calendar.JDateChooser();
@@ -62,6 +72,8 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btModificar = new javax.swing.JButton();
+        labelEstado1 = new javax.swing.JLabel();
+        btVer = new javax.swing.JButton();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/manejoPedidos.PNG"))); // NOI18N
 
@@ -72,9 +84,11 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
 
         jLabel3.setText("ID Mozo:");
 
+        txIdMozo.setEnabled(false);
+
         jLabel4.setText("Estado:");
 
-        jCheckBox1.setText("Pendiente/Pagado");
+        cbEstado.setText("Pendiente/Pagado");
 
         labelEstado.setText("estado actual de la mesa:");
 
@@ -88,10 +102,15 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         });
 
         btSalir.setText("Salir");
+        btSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalirActionPerformed(evt);
+            }
+        });
 
         btNuevo.setText("Nuevo");
 
-        jLabel6.setText("Pendientes:");
+        jLabel6.setText("Pendientes de:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,6 +127,15 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
 
         btModificar.setText("Modificar");
 
+        labelEstado1.setText("\"\"");
+
+        btVer.setText("Ver");
+        btVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,55 +144,62 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txIdMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jCheckBox1))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelMozo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btModificar)
-                                .addGap(101, 101, 101)
-                                .addComponent(btSalir))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(127, 127, 127)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btNuevo)
-                            .addComponent(labelEstado)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btPedido, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(89, 89, 89)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel3))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txIdMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbEstado)
+                                        .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(btNuevo)
+                                        .addComponent(labelEstado)
+                                        .addComponent(jLabel5))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(36, 36, 36)
+                                            .addComponent(btPedido))
+                                        .addComponent(labelEstado1))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(196, 196, 196)))
+                        .addGap(156, 156, 156))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(labelMozo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btVer)
+                        .addGap(101, 101, 101)
+                        .addComponent(btModificar)
+                        .addGap(109, 109, 109)
+                        .addComponent(btSalir))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(91, 91, 91))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(38, 38, 38)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,38 +210,93 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jCheckBox1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbEstado))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(labelEstado)
-                .addGap(37, 37, 37)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btPedido)
-                    .addComponent(btNuevo))
-                .addGap(30, 30, 30)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelEstado)
+                    .addComponent(labelEstado1))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btNuevo)
+                    .addComponent(btPedido))
                 .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(labelMozo))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btModificar)
-                    .addComponent(btSalir))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(btSalir)
+                    .addComponent(btVer))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPedidoActionPerformed
-        // TODO add your handling code here:
+        
+        try{
+            
+        //obtengo la mesa del jcomboBox
+        Mesa mesaSel = null;
+        mesaSel = (Mesa) cbMesa.getSelectedItem();
+        //obtengo el id de la mesa
+        int idSelMesa = mesaSel.getIdMesa();
+        
+      
+        Integer idMozoSel = Integer.parseInt(txIdMozo.getText());
+        //tengo que buscar el mozo en la db, el metodo devuleve un Mozo
+        mozoSel = mozoData.buscarMozoId(idMozoSel);
+
+        boolean estadoSel = cbEstado.isSelected();
+
+        
+        Date fechaActual = dateC.getDate();
+        //paso de un date a un LocalDate
+        LocalDate fechaSel = fechaActual.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        
+            if (mesaSel == null) {
+                
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una mesa");
+                return;
+            }
+        
+            if (pedidoActual == null) {
+                
+                //creo el pedido con sus atributos
+                Pedido pedidoActual = new Pedido(mesaSel, mozoSel, estadoSel, fechaSel);
+                //lo cargo en la base de datos
+                pedidoData.cargarPedido(pedidoActual, mesaSel, mozoSel);
+            }
+            
+           
+            
+    } catch (NumberFormatException ex){
+        
+        JOptionPane.showMessageDialog(this, "ingrse un elemento valido");
+        
+    }
+        
+
     }//GEN-LAST:event_btPedidoActionPerformed
+
+    private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
+dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btSalirActionPerformed
+
+    private void btVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerActionPerformed
+  cargarTabla();        // TODO add your handling code here:
+    }//GEN-LAST:event_btVerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -214,9 +304,10 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
     private javax.swing.JButton btNuevo;
     private javax.swing.JButton btPedido;
     private javax.swing.JButton btSalir;
+    private javax.swing.JButton btVer;
+    private javax.swing.JCheckBox cbEstado;
     private javax.swing.JComboBox<Mesa> cbMesa;
     private com.toedter.calendar.JDateChooser dateC;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -227,6 +318,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelEstado;
+    private javax.swing.JLabel labelEstado1;
     private javax.swing.JLabel labelMozo;
     private javax.swing.JTextField txIdMozo;
     // End of variables declaration//GEN-END:variables
@@ -234,7 +326,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
 //cargo el jcomboBox
     public void cargarJcbMesa(){
     
-    for (Mesa mesa : meData.listadoMesasaA() ) {
+    for (Mesa mesa : meData.listadoMesasaAll() ) {
         
         cbMesa.addItem(mesa);
         
@@ -257,6 +349,39 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
     Date date = Date.from(fechaActual.atStartOfDay(ZoneId.systemDefault()).toInstant());
     
     dateC.setDate(date);
+        
+    }
+ 
+    //armar cabecera
+    public void armarCabecera(){
+        
+        modelo.addColumn("id Pedido");
+        modelo.addColumn("Mesa");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Fecha");
+        
+    }
+    
+    //cargar la tabla
+    public void cargarTabla(){
+        Mesero mozo = LoginMozo.getMeseroActual();
+        
+        
+        
+        modelo.setRowCount(0);
+        
+        for (Pedido pedido : pedidoData.listarPedidoId(mozo.getIdMesero())) {
+            
+            Object [] fila = new Object[0];
+            fila [0] = pedido.getIdPedido();
+            fila [1] = pedido.getMesa();
+            fila [2] = pedido.getMesero();
+            fila[3] = pedido.isEstado();
+            fila[4] = pedido.getFechaPedido();
+           
+            modelo.addRow(fila);
+            
+        }
         
     }
     
