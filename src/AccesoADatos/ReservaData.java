@@ -9,6 +9,10 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -19,10 +23,13 @@ public class ReservaData {
     
     private Connection con = null;
     
+    private MesaData meData = new MesaData();
+    
     public ReservaData(){
         con = ConexionData.getConexion();
     }
     
+    //guardar reserva
     public void hacerReserva(Reserva reserva, int idMesa){
         
         String sql = "INSERT INTO reserva(id_mesa, nombre_cliente, dni_cliente, fecha_reserva, hora_reserva, estado) VALUES (?,?,?,?,?,?)";
@@ -57,6 +64,9 @@ public class ReservaData {
 
 
      }   
+    
+    //modificar reserva
+    
          public boolean modificarReserva(Reserva reserva, Mesa mesa, int idMesa) {
         String sql = "UPDATE reservas SET nombre_cliente = ?, dni_cliente = ?, fecha_reserva = ?, hora_reserva = ?, estado = ? WHERE id_reserva = ?";
 
@@ -83,5 +93,83 @@ public class ReservaData {
             return false;
         }
     }  
+         
+     //buscar reserva
+         public Reserva buscaReserva(int id){
+              
+             String sql = "SELECT * FROM reserva WHERE id_reserva";
+             
+             Reserva reserva = null;
+             
+        try {
+           PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, id);
+             
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                
+                reserva = new Reserva();
+                
+                reserva.setIdReserva(rs.getInt("id_reserva"));
+                reserva.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+                reserva.setNombreCliente(rs.getString("nombre_cliente"));
+                reserva.setDniCliente(rs.getInt("dni_cliente"));
+                
+                reserva.setFechaReserva(rs.getDate("fecha_reserva").toLocalDate());
+                reserva.setHoraReserva(rs.getTime("hora_reserva").toLocalTime());
+                
+                reserva.setEstado(true);   
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+             return reserva;
+           
+         }
+         
+        //listar reservas 
+         
+         public List<Reserva> listadoReservas(){
+             
+             String sql = "SELECT * FROM reserva";
+             
+             ArrayList listadoReserva = new ArrayList<>();
+             
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                
+                Reserva reserva = new Reserva();
+                
+                reserva.setIdReserva(rs.getInt("id_reserva"));
+                reserva.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+                reserva.setNombreCliente(rs.getString("nombre_cliente"));
+                reserva.setDniCliente(rs.getInt("dni_cliente"));
+                reserva.setFechaReserva(rs.getDate("fecha_reserva").toLocalDate());
+                reserva.setHoraReserva(rs.getTime("hora_reserva").toLocalTime());
+                
+                reserva.setEstado(true);
+                
+                listadoReserva.add(reserva);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+             return listadoReserva;
+             
+             
+         }
+         
+          
     }
     
+

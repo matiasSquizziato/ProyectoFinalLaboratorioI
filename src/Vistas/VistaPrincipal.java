@@ -13,6 +13,7 @@ import VistasInternas.InternalAdminMozos;
 import VistasInternas.InternalMesas;
 import VistasInternas.InternalPedidos2;
 import VistasInternas.InternalProductos;
+import VistasInternas.InternalReservas;
 import VistasInternas.ListadoInternalMesas;
 import VistasInternas.ListadoInternalMozos;
 import java.time.LocalDate;
@@ -254,6 +255,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Salon");
 
         MenuReservas.setText("Reservas");
+        MenuReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuReservasActionPerformed(evt);
+            }
+        });
         jMenu2.add(MenuReservas);
 
         MenuMesas.setText("Mesas");
@@ -395,6 +401,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
 dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btSalirActionPerformed
+
+    private void MenuReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuReservasActionPerformed
+
+        InternalReservas internalReservas = new InternalReservas();
+        escritorio.add(internalReservas);
+        internalReservas.setVisible(true);
+
+    }//GEN-LAST:event_MenuReservasActionPerformed
 
     /**
      * @param args the command line arguments

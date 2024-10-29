@@ -32,6 +32,9 @@ public class Reserva {
         this.horaReserva = horaReserva;
         this.estado = estado;
     }
+
+    public Reserva() {
+    }
     
     
     
@@ -75,6 +78,8 @@ public class Reserva {
     public void setFechaReserva(LocalDate fechaReserva) {
         this.fechaReserva = fechaReserva;
     }
+
+
 
     public LocalTime getHoraReserva() {
         return horaReserva;
