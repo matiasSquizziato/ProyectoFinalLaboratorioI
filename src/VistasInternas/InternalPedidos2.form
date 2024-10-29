@@ -34,6 +34,8 @@
                               <Component id="cbPedido" min="-2" pref="178" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                               <Component id="brBuscar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="btActualizar" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
@@ -101,6 +103,7 @@
                   <Component id="cbPedido" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="brBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="33" max="32767" attributes="0"/>
               <Component id="labelResultado" min="-2" max="-2" attributes="0"/>
@@ -300,6 +303,15 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Resultado:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btActualizar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Actualizar"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btActualizarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

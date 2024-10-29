@@ -67,8 +67,8 @@ public class ReservaData {
     
     //modificar reserva
     
-         public boolean modificarReserva(Reserva reserva, Mesa mesa, int idMesa) {
-        String sql = "UPDATE reservas SET nombre_cliente = ?, dni_cliente = ?, fecha_reserva = ?, hora_reserva = ?, estado = ? WHERE id_reserva = ?";
+         public void modificarReserva(Reserva reserva, Mesa mesa, int idMesa) {
+        String sql = "UPDATE reserva SET nombre_cliente = ?, dni_cliente = ?, fecha_reserva = ?, hora_reserva = ?, estado = ? WHERE id_reserva = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, idMesa);
@@ -80,24 +80,22 @@ public class ReservaData {
 
             int filasAfectadas = ps.executeUpdate();
             if (filasAfectadas > 0) {
-                System.out.println("Reserva modificada con éxito.");
-                return true;
+                JOptionPane.showMessageDialog(null,"Reserva: " +reserva + ",modificada");
             } else {
-                System.out.println("No se encontró la reserva con el ID especificado.");
-                return false;
+                    JOptionPane.showMessageDialog(null,"no se pudo modificar la reserva");
+                
             }
 
         } catch (SQLException e) {
-            System.out.println("Error al modificar la reserva.");
-            e.printStackTrace();
-            return false;
+          JOptionPane.showMessageDialog(null,"no se pudo acceder a la tabla reserva");
         }
     }  
          
      //buscar reserva
          public Reserva buscaReserva(int id){
               
-             String sql = "SELECT * FROM reserva WHERE id_reserva";
+            String sql = "SELECT * FROM reserva WHERE id_reserva = ?";
+
              
              Reserva reserva = null;
              

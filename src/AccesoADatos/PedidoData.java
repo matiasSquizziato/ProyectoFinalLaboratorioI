@@ -172,8 +172,13 @@ public class PedidoData {
                    pedido.setIdPedido(rs.getInt("id_pedido"));
                    pedido.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
                    pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));
-                   pedido.setEstado(true);
                    pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
+                   
+                   //obtengo el estado de la db
+                   boolean estado = rs.getBoolean("estado");
+//                   se lo cargo al pedido
+                    System.out.println(estado);
+                   pedido.setEstado(estado);
                    
                    pedidosAll.add(pedido);
                    
