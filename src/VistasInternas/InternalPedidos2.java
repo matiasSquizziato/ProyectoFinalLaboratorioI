@@ -79,6 +79,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         cbPedido = new javax.swing.JComboBox<>();
         jSeparator2 = new javax.swing.JSeparator();
         labelResultado = new javax.swing.JLabel();
+        btActualizar = new javax.swing.JButton();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/manejoPedidos.PNG"))); // NOI18N
 
@@ -151,6 +152,14 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
 
         labelResultado.setText("Resultado:");
 
+        btActualizar.setText("Actualizar");
+        btActualizar.setToolTipText("");
+        btActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,7 +177,9 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                                 .addGap(41, 41, 41)
                                 .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(45, 45, 45)
-                                .addComponent(brBuscar))
+                                .addComponent(brBuscar)
+                                .addGap(50, 50, 50)
+                                .addComponent(btActualizar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(39, 39, 39)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +229,8 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(brBuscar)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(btActualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(labelResultado)
                 .addGap(18, 18, 18)
@@ -306,7 +318,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                  cargarTabla();
                 
             } else {
-                
+                System.out.println(estadoSel);
                 pedidoActual.setMesa(mesaSel);
                 pedidoActual.setMesero(mozoSel);
                 pedidoActual.setEstado(estadoSel);
@@ -323,8 +335,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(this, "ingrse un elemento valido");
         
     }
-        
-
+     
     }//GEN-LAST:event_btPedidoActionPerformed
 
     private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
@@ -364,7 +375,7 @@ dispose();        // TODO add your handling code here:
                 txIdMozo.setText(String.valueOf(mesero.getIdMesero()));
 
                 //modificamos el estado
-                cbEstado.setSelected(pedidoActual.isEstado());
+//                cbEstado.setSelected(pedidoActual.isEstado());
                 
                 LocalDate localDate = pedidoActual.getFechaPedido();
                 //convierto el localdate a dae solo
@@ -389,9 +400,16 @@ dispose();        // TODO add your handling code here:
 
     }//GEN-LAST:event_brBuscarActionPerformed
 
+    private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
+        
+    
+
+    }//GEN-LAST:event_btActualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brBuscar;
+    private javax.swing.JButton btActualizar;
     private javax.swing.JButton btNuevo;
     private javax.swing.JButton btPedido;
     private javax.swing.JButton btSalir;
@@ -476,13 +494,13 @@ dispose();        // TODO add your handling code here:
         
         modelo.setRowCount(0);
         
-        for (Pedido pedido : pedidoData.listarPedidoId(mozo.getIdMesero())) {
+        for (Pedido pedido : pedidoData.listarPedido()) {
             
             Object [] fila = new Object[5];
             fila [0] = pedido.getIdPedido();
             fila [1] = pedido.getMesa();
             fila [2] = pedido.getMesa().getIdMesa();
-            fila [3] = pedido.isEstado();
+            fila [3] = pedido.isEstado() ? "Pendiente" : "pagado";
             fila [4] = pedido.getFechaPedido();
            
             modelo.addRow(fila);
@@ -500,5 +518,11 @@ dispose();        // TODO add your handling code here:
     dateC.setDate(date);
     
 }
+
+    private void limpiarJcbPedido() {
+
+        cbPedido.addItem(null);
+
+    }
     
 }
