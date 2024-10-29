@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -187,32 +188,30 @@ public class PedidoData {
         
     }
     
-    //modificar pedido
-     public void modificarPedido(Pedido pedido){
-         
-         System.out.println("estoy aqui pedido: " + pedido);
-              String sql = "UPDATE pedido SET id_mesa=?, id_mesero=?, estado=?, fecha_pedido=? WHERE id_pedido=?";
+    //modificar pedido 
+    public void modificarPedido(Pedido pedido){
+    String sql = "UPDATE pedido SET estado = ?, fecha_pedido = ?, id_mesa = ?, id_mesero = ? WHERE id_pedido = ?";
+    
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
         
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            
-            ps.setBoolean(1, !pedido.isEstado());
-            ps.setInt(2, pedido.getIdPedido());
-            ps.setInt(3, pedido.getMesa().getIdMesa());
-            ps.setInt(4, pedido.getMesero().getIdMesero());
-            ps.setBoolean(5, pedido.isEstado());
-            ps.setDate(6, Date.valueOf(pedido.getFechaPedido()));
-            
-           ps.executeUpdate();
-            
-            
-            
-        } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error al ingrear a la tabla pedido: " + ex.getMessage());
+        ps.setBoolean(1, pedido.isEstado());
+        ps.setDate(2, java.sql.Date.valueOf(pedido.getFechaPedido()));
+        ps.setInt(3, pedido.getMesa().getIdMesa());
+        ps.setInt(4, pedido.getMesero().getIdMesero());
+        ps.setInt(5, pedido.getIdPedido());
+ 
+        
+        int exito = ps.executeUpdate();
+        
+        if (exito > 0) {
+            JOptionPane.showMessageDialog(null, "El pedido ha sido modificado exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún pedido para actualizar.");
         }
-         
-         
-     }
-     
-     
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al modificar el pedido: " + ex.getMessage());
+    }
+}
+
+   
 }
