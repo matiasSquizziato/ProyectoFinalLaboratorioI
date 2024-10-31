@@ -11,7 +11,7 @@ public class Pedido {
     private Mesero mesero;
     private boolean estado;
     private LocalDate fechaPedido;
-//    private List<DetallePedido> detalles;
+    private List<DetallePedido> detalles;
 
     public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean estado, LocalDate fechaPedido) {
         this.idPedido = idPedido;
@@ -30,10 +30,6 @@ public class Pedido {
 
     public Pedido() {
     }
-
-    
-  
-
 
     public int getIdPedido() {
         return idPedido;
@@ -67,13 +63,13 @@ public class Pedido {
         this.fechaPedido = fechaPedido;
     }
 
-//    public List<DetallePedido> getDetalles() {
-//        return detalles;
-//    }
-//
-//    public void setDetalles(List<DetallePedido> detalles) {
-//        this.detalles = detalles;
-//    }
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
 
     public boolean isEstado() {
         return estado;

@@ -104,6 +104,51 @@ public class ProductoData {
         
     }
     
+    //busco producto por id
+    public Producto buscarProductoid(int id){
+        
+        String sql = "SELECT id_producto, nombre, cantidad, precio, codigo FROM producto WHERE id_producto = ?";
+        
+        
+        Producto producto = null;
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                
+                producto = new Producto();
+                
+                producto.setIdProducto(rs.getInt("id_producto"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setCantidad(rs.getInt("cantidad"));
+                producto.setPrecio(rs.getDouble("precio"));
+                producto.setCodigo(rs.getInt("codigo"));
+                
+                
+                
+                producto.setEstado(true);
+               
+                
+            } else {
+                
+                JOptionPane.showMessageDialog(null, "NO HAY PRODUCTO CON ESE id: " + id);
+                
+            }
+            
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return producto;
+        
+    }
+    
     //Modificar un producto
     
     public void modificarProducto(Producto producto){
@@ -134,6 +179,33 @@ public class ProductoData {
         
         
     }
+    
+    //modificar stock de producto
+    
+    public void modificarProductoStock(Producto producto, int cantidad) {
+    String sql = "UPDATE producto SET cantidad = ? WHERE id_producto = ?";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+
+      
+        ps.setInt(1, cantidad); 
+        ps.setInt(2, producto.getIdProducto()); 
+
+        int exito = ps.executeUpdate();
+
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "Producto: " + producto.getNombre() + ", modificado correctamente con nuevo stock: " + cantidad);
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "NO SE PUDO ACCEDER A LA TABLA PRODUCTO");
+    }
+    }
+
+    
+    
+    
     
     //Listado de producto que tienen poco stock
     public List<Producto> listarProductosMenores(){
@@ -188,6 +260,7 @@ public class ProductoData {
                 producto.setIdProducto(rs.getInt("id_producto"));
                 producto.setCodigo(rs.getInt("codigo"));
                 producto.setNombre(rs.getString("nombre"));
+                producto.setPrecio(rs.getDouble("precio"));
                 producto.setCantidad(rs.getInt("cantidad"));
                 producto.setEstado(true);
                 

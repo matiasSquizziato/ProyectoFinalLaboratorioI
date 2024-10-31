@@ -4,9 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/InternalReservas.java</file>
-            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/InternalPedidos2.java</file>
-            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/LoginMozo/InternalLoginMozo.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/InternalDetallePedido.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/Entidades/DetallePedido.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/AccesoADatos/MesaData.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/Entidades/Producto.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/Entidades/Pedido.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/AccesoADatos/DetallePedidoData.java</file>
             <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/Vistas/VistaPrincipal.java</file>
+            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/AccesoADatos/ProductoData.java</file>
         </group>
     </open-files>
 </project-private>

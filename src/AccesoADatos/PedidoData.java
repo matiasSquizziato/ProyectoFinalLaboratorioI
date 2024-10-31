@@ -193,6 +193,90 @@ public class PedidoData {
         
     }
     
+     //listar pedidos que sean activos
+          public List<Pedido> listarPedidoAct(){
+        
+        String sql = "SELECT * FROM pedido WHERE estado = 1";
+        
+        ArrayList pedidosAct = new ArrayList<>();
+        
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            
+              
+               
+               ResultSet rs = ps.executeQuery();
+               
+               while (rs.next()) {
+                
+                   Pedido pedido = new Pedido();
+                   pedido.setIdPedido(rs.getInt("id_pedido"));
+                   pedido.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+                   pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));
+                   pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
+                   
+                   //obtengo el estado de la db
+                   boolean estado = rs.getBoolean("estado");
+//                   se lo cargo al pedido
+                    System.out.println(estado);
+                   pedido.setEstado(estado);
+                   
+                   pedidosAct.add(pedido);
+                   
+               }
+               
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+     return pedidosAct;   
+        
+    }
+     
+      //listar pedidos que sean inactivos
+          public List<Pedido> listarPedidoNull(){
+        
+        String sql = "SELECT * FROM pedido WHERE estado = 0";
+        
+        ArrayList pedidosNull = new ArrayList<>();
+        
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            
+              
+               
+               ResultSet rs = ps.executeQuery();
+               
+               while (rs.next()) {
+                
+                   Pedido pedido = new Pedido();
+                   pedido.setIdPedido(rs.getInt("id_pedido"));
+                   pedido.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+                   pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));
+                   pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
+                   
+                   //obtengo el estado de la db
+                   boolean estado = rs.getBoolean("estado");
+//                   se lo cargo al pedido
+                    System.out.println(estado);
+                   pedido.setEstado(estado);
+                   
+                   pedidosNull.add(pedido);
+                   
+               }
+               
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+     return pedidosNull;   
+        
+    }
+     
     //modificar pedido 
     public void modificarPedido(Pedido pedido){
     String sql = "UPDATE pedido SET estado = ?, fecha_pedido = ?, id_mesa = ?, id_mesero = ? WHERE id_pedido = ?";
