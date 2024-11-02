@@ -302,5 +302,26 @@ public class PedidoData {
     }
 }
 
+    
+    //modificar el esado
+    public void cambiarEstadoPedido(int idPedido, boolean nuevoEstado) {
+    String sql = "UPDATE pedido SET estado = ? WHERE id_pedido = ?";
+    
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setBoolean(1, nuevoEstado); // Establecemos el nuevo estado
+        ps.setInt(2, idPedido); // Identificamos el pedido por su ID
+
+        int exito = ps.executeUpdate();
+
+        if (exito > 0) {
+            JOptionPane.showMessageDialog(null, "El estado del pedido ha sido modificado exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún pedido para actualizar.");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al modificar el estado del pedido: " + ex.getMessage());
+    }
+}
+
    
 }

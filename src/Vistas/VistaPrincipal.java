@@ -11,12 +11,14 @@ import LoginMozo.InternalLoginMozo;
 import LoginMozo.LoginMozo;
 import VistasInternas.InternalAdminMozos;
 import VistasInternas.InternalDetallePedido;
+import VistasInternas.InternalFactura;
 import VistasInternas.InternalMesas;
 import VistasInternas.InternalPedidos2;
 import VistasInternas.InternalProductos;
 import VistasInternas.InternalReservas;
 import VistasInternas.ListadoInternalMesas;
 import VistasInternas.ListadoInternalMozos;
+import VistasInternas.ListadoInternalProductos;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -73,6 +75,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         MenuMozos = new javax.swing.JMenuItem();
         MenuProductos = new javax.swing.JMenuItem();
         MenuDetalles = new javax.swing.JMenuItem();
+        MenuFactura = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         MenuReservas = new javax.swing.JMenuItem();
         MenuMesas = new javax.swing.JMenuItem();
@@ -258,6 +261,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(MenuDetalles);
 
+        MenuFactura.setText("Factura");
+        MenuFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuFacturaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MenuFactura);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Salon");
@@ -307,6 +318,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu3.add(MenuListMesas);
 
         jMenuItem1.setText("Listado Productos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem1);
 
         jMenuBar1.add(jMenu3);
@@ -389,18 +405,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btIniciarActionPerformed
 
     private void MenuPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPedidosActionPerformed
-        
-//        //internal login
-//        InternalLoginMozo internalLogin = new InternalLoginMozo();
-//        escritorio.add(internalLogin);
-//        internalLogin.setVisible(true);
-//        
-//        internal pedido
+
+         Mesero mozo = LoginMozo.getMeseroActual();
+
+         if (mozo == null) {
+            
+             JOptionPane.showMessageDialog(this,"Debe iniciar sesion primero!");
+             return;
+        }
+         
         InternalPedidos2 internalPedidos2 = new InternalPedidos2();
         escritorio.add(internalPedidos2);
         internalPedidos2.setVisible(true);
         
-        Mesero mozo = LoginMozo.getMeseroActual();
+       
      
         JOptionPane.showMessageDialog(this, "Ingresando como: " + mozo.toString());
         
@@ -427,6 +445,23 @@ dispose();        // TODO add your handling code here:
        internalDetalle.setVisible(true);
         
     }//GEN-LAST:event_MenuDetallesActionPerformed
+
+    private void MenuFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuFacturaActionPerformed
+
+        InternalFactura internalFactura = new InternalFactura();
+        escritorio.add(internalFactura);
+        internalFactura.setVisible(true);
+
+
+    }//GEN-LAST:event_MenuFacturaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
+        ListadoInternalProductos listadoProdu = new ListadoInternalProductos();
+        escritorio.add(listadoProdu);
+        listadoProdu.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -465,6 +500,7 @@ dispose();        // TODO add your handling code here:
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuDetalles;
+    private javax.swing.JMenuItem MenuFactura;
     private javax.swing.JMenuItem MenuListMesas;
     private javax.swing.JMenuItem MenuListMozos;
     private javax.swing.JMenuItem MenuMesas;

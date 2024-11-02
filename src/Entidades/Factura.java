@@ -20,37 +20,50 @@ public class Factura {
         this.fechaFactura = fechaFactura;
     }
 
+    public Factura(Pedido pedido, double total, LocalDate fechaFactura) {
+        this.pedido = pedido;
+        this.total = total;
+        this.fechaFactura = fechaFactura;
+    }
+
+    
+    
     //Vacio
     public Factura() {
         
     }
 
-    
-
     public int getIdFactura() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public Pedido getPedido() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public double getTotal() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public LocalDate getFechaFactura() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return idFactura;
     }
 
     public void setIdFactura(int idFactura) {
+        this.idFactura = idFactura;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
     }
 
     public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public double getTotal() {
+        return total;
     }
 
     public void setTotal(double total) {
+        this.total = total;
     }
+
+    public LocalDate getFechaFactura() {
+        return fechaFactura;
+    }
+
+    
+    
+ 
 
     public void setFechaFactura(LocalDate fechaFactura) {
         this.fechaFactura = fechaFactura;

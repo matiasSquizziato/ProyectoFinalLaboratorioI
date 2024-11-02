@@ -192,6 +192,39 @@ public class DetallePedidoData {
         
     }
     
+    //consulta por los importes para la factura
+    public List<DetallePedido> importesPorId(int id){
+        
+        String sql = "SELECT importe FROM detalle_pedido WHERE id_pedido =? AND estado = 1";
+        
+        ArrayList <DetallePedido> totalImporte = new ArrayList<>();
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                
+                DetallePedido deImporte = new DetallePedido();
+                
+                deImporte.setImporte(rs.getDouble("importe"));
+                
+                totalImporte.add(deImporte);
+                
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DetallePedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return totalImporte;
+           
+    }
     
+    //
     
 }

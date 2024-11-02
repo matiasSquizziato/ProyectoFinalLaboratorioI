@@ -316,6 +316,10 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                 
                 //cargo la tabla de pedidos pendies del mozo
                  cargarTabla();
+                 
+                 //modifico el estado de la mesa
+                 mesaSel.setEstado(false);
+                 
                 
             } else {
                 System.out.println(estadoSel);
