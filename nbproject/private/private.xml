@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/AccesoADatos/FacturaData.java</file>
-            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/Entidades/Factura.java</file>
-            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/InternalDetallePedido.java</file>
-            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/AccesoADatos/DetallePedidoData.java</file>
-            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/ListadoInternalProductos.java</file>
-            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/VistasInternas/InternalFactura.java</file>
-            <file>file:/G:/Laboratorio1/ProyectoFinalLaboratorio/src/Vistas/VistaPrincipal.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
