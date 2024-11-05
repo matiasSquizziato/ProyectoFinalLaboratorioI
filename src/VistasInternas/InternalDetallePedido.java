@@ -5,6 +5,7 @@
 package VistasInternas;
 
 import AccesoADatos.DetallePedidoData;
+import AccesoADatos.MesaData;
 import AccesoADatos.PedidoData;
 import AccesoADatos.ProductoData;
 import Entidades.DetallePedido;
@@ -25,6 +26,8 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
     
     DetallePedidoData detalleData = new DetallePedidoData();
     DetallePedido detalleActual = null;
+    
+
     
     ProductoData proData = new ProductoData();
     
@@ -396,6 +399,7 @@ dispose();        // TODO add your handling code here:
             } 
             
             detalleActual = null;
+            
             
         } catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(this, "debe ingresar un dato valido" + ex.getMessage());

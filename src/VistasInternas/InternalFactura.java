@@ -6,9 +6,11 @@ package VistasInternas;
 
 import AccesoADatos.DetallePedidoData;
 import AccesoADatos.FacturaData;
+import AccesoADatos.MesaData;
 import AccesoADatos.PedidoData;
 import Entidades.DetallePedido;
 import Entidades.Factura;
+import Entidades.Mesa;
 import Entidades.Pedido;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -27,6 +29,7 @@ public class InternalFactura extends javax.swing.JInternalFrame {
     FacturaData faData = new FacturaData();
     Factura facturaActual = null;
     
+    MesaData meData = new MesaData();
     
     /**
      * Creates new form InternalFactura
@@ -337,8 +340,9 @@ try {
         
     }
       
+    Mesa mesaActual = pedidoActual.getMesa();
     
-        
+        meData.modificarEstado(mesaActual);
 
 } catch (NumberFormatException ex) {
     JOptionPane.showMessageDialog(this, "Ocurrió un error: " + ex.getMessage());

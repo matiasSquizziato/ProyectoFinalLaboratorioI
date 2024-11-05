@@ -441,7 +441,7 @@ dispose();        // TODO add your handling code here:
 //cargo el jcomboBox
     public void cargarJcbMesa(){
     
-    for (Mesa mesa : meData.listadoMesasaAll() ) {
+    for (Mesa mesa : meData.listadoMesasaA()) {
         
         cbMesa.addItem(mesa);
         
