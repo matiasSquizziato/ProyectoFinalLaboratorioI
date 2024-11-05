@@ -225,6 +225,30 @@ public class DetallePedidoData {
            
     }
     
-    //
+   //sumar importe 
+    
+   public double sumarImportesPorPedido(int idPedido) {
+    String sql = "SELECT SUM(importe) AS total_importe FROM detalle_pedido WHERE id_pedido = ?";
+    double totalImporte = 0;
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idPedido);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            totalImporte = rs.getDouble("total_importe");
+        }
+
+        ps.close(); // Cierra el PreparedStatement
+
+    } catch (SQLException ex) {
+        Logger.getLogger(DetallePedidoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return totalImporte; // Retorna el total de importes
+}
+
     
 }

@@ -235,6 +235,44 @@ public class PedidoData {
         
     }
      
+          //listar pedidos por id mozo
+       public List<Pedido> listarPedidoMozo(int idMesero) {
+    String sql = "SELECT * FROM pedido WHERE id_mesero = ?";
+    
+    ArrayList<Pedido> pedidos = new ArrayList<>();  // Lista con tipo definido
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idMesero);  // Asignamos el parámetro id_mesero
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Pedido pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("id_pedido"));
+            pedido.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+            pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));
+            pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
+
+            // Obtengo el estado de la DB y lo asigno al pedido
+            boolean estado = rs.getBoolean("estado");
+            System.out.println(estado);
+            pedido.setEstado(estado);
+
+            pedidos.add(pedido);  // Agrego el pedido a la lista
+        }
+
+        ps.close();  // Cerrar PreparedStatement
+
+    } catch (SQLException ex) {
+        Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return pedidos;  // Retorno la lista de pedidos
+}
+
+          
+          
       //listar pedidos que sean inactivos
           public List<Pedido> listarPedidoNull(){
         
@@ -324,4 +362,42 @@ public class PedidoData {
 }
 
    
+    //listar por fecha y id
+    public List<Pedido> listarPedidoMozoPorFecha(int idMesero, LocalDate fecha) {
+    String sql = "SELECT * FROM pedido WHERE id_mesero = ? AND fecha_pedido = ?";
+
+    ArrayList<Pedido> pedidos = new ArrayList<>();
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idMesero);
+        ps.setDate(2, java.sql.Date.valueOf(fecha));  // Convertimos LocalDate a java.sql.Date
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Pedido pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("id_pedido"));
+            pedido.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+            pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));
+            pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
+
+            boolean estado = rs.getBoolean("estado");
+            System.out.println(estado);
+            pedido.setEstado(estado);
+
+            pedidos.add(pedido);
+        }
+
+        ps.close();
+
+    } catch (SQLException ex) {
+        Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return pedidos;
+}
+
+    
+    
 }
