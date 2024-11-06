@@ -2,6 +2,7 @@ package Entidades;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
@@ -11,8 +12,10 @@ public class Pedido {
     private Mesero mesero;
     private boolean estado;
     private LocalDate fechaPedido;
-//    private List<DetallePedido> detalles;
+    private List<DetallePedido> detalles;
 
+    
+    
     public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean estado, LocalDate fechaPedido) {
         this.idPedido = idPedido;
         this.mesa = mesa;
@@ -32,9 +35,8 @@ public class Pedido {
     }
 
     
-  
-
-
+    public static ArrayList<Pedido> detallePedidos = new ArrayList<>();
+    
     public int getIdPedido() {
         return idPedido;
     }
@@ -67,13 +69,13 @@ public class Pedido {
         this.fechaPedido = fechaPedido;
     }
 
-//    public List<DetallePedido> getDetalles() {
-//        return detalles;
-//    }
-//
-//    public void setDetalles(List<DetallePedido> detalles) {
-//        this.detalles = detalles;
-//    }
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
 
     public boolean isEstado() {
         return estado;

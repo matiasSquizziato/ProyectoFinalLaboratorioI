@@ -26,6 +26,12 @@ public class DetallePedido {
         this.estado = estado;
     }
 
+    public DetallePedido() {
+    }
+    
+    
+    
+
     public int getIdDetalle() {
         return idDetalle;
     }
@@ -66,12 +72,19 @@ public class DetallePedido {
         this.importe = importe;
     }
 
+
+
     public boolean isEstado() {
         return estado;
     }
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "id" + idDetalle + ", pedido=" + pedido + ", pdct" + producto + ", cant" + cantidadProducto + ", $$" + importe + ",est" + estado;
     }
 
     

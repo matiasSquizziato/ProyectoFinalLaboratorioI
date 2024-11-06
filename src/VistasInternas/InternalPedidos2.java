@@ -316,6 +316,10 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                 
                 //cargo la tabla de pedidos pendies del mozo
                  cargarTabla();
+                 
+                 //modifico el estado de la mesa
+                 mesaSel.setEstado(false);
+                 
                 
             } else {
                 System.out.println(estadoSel);
@@ -437,7 +441,7 @@ dispose();        // TODO add your handling code here:
 //cargo el jcomboBox
     public void cargarJcbMesa(){
     
-    for (Mesa mesa : meData.listadoMesasaAll() ) {
+    for (Mesa mesa : meData.listadoMesasaA()) {
         
         cbMesa.addItem(mesa);
         
