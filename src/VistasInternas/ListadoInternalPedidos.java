@@ -61,6 +61,8 @@ public class ListadoInternalPedidos extends javax.swing.JInternalFrame {
         dateC = new com.toedter.calendar.JDateChooser();
         labelMozo = new javax.swing.JLabel();
         txTotalF = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txGastopp = new javax.swing.JTextField();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/listadoPedidos.PNG"))); // NOI18N
 
@@ -100,6 +102,8 @@ public class ListadoInternalPedidos extends javax.swing.JInternalFrame {
 
         labelMozo.setText("Facturado: ");
 
+        jLabel4.setText("Costo por persona: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,10 +111,6 @@ public class ListadoInternalPedidos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btSalir)
-                .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -126,16 +126,25 @@ public class ListadoInternalPedidos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btVer)
                 .addGap(68, 68, 68))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btSalir)
+                .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(labelMozo))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txTotalF, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txGastopp, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(labelMozo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txTotalF, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,13 +163,17 @@ public class ListadoInternalPedidos extends javax.swing.JInternalFrame {
                     .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txTotalF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelMozo))
-                .addGap(37, 37, 37)
+                    .addComponent(labelMozo)
+                    .addComponent(txTotalF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txGastopp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(btSalir)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -186,6 +199,7 @@ dispose();
         
         
         
+        
     }//GEN-LAST:event_btVerActionPerformed
 
 
@@ -196,10 +210,12 @@ dispose();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelMozo;
+    private javax.swing.JTextField txGastopp;
     private javax.swing.JTextField txIdMozo;
     private javax.swing.JTextField txTotalF;
     // End of variables declaration//GEN-END:variables
@@ -240,6 +256,8 @@ public void armarCabecera(){
    public void cargarTabla(){
        
        double totalGenerado = 0;
+       double costopp = 0;
+        int totalCapacidadMesas = 0;
         Mesero mozo = LoginMozo.getMeseroActual();
         
        Date date = dateC.getDate();
@@ -261,10 +279,27 @@ public void armarCabecera(){
             //sumo los totales de cada pedido
             double totalPedido = deData.sumarImportesPorPedido(pedido.getIdPedido());
             totalGenerado += totalPedido;
+            
+            //calculo un costo por persona, teniendo en cuenta el total
+            //con los lugares de las mesas 
+            //y obtengo un valor de lo que gasta una persona
+            
+             totalCapacidadMesas += pedido.getMesa().getCapacidad();
+           
+               if (totalCapacidadMesas > 0) {
+                costopp = totalGenerado / totalCapacidadMesas;
+            }
+             
+   
+            
         }
-        
-        txTotalF.setText(String.valueOf(totalGenerado));
+        //set tecxtField de total
+        txTotalF.setText(String.valueOf("$"+totalGenerado));
+        //set textField calculopp
+        txGastopp.setText(String.valueOf("$"+costopp));
         
     }
 
+   
+   
 }

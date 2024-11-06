@@ -104,6 +104,44 @@ public class DetallePedidoData {
     }
     
     
+    //listar detalles del idPedido
+
+    public List<DetallePedido> buscarDetalleIdp(int id) {
+    
+    String sql = "SELECT * FROM detalle_pedido WHERE id_pedido = ?";
+    ArrayList<DetallePedido> detallesPorP = new ArrayList<>();
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()) {
+            DetallePedido detalleActual = new DetallePedido();
+            
+            
+            detalleActual.setIdDetalle(rs.getInt("id_detalle"));
+            
+            
+            detalleActual.setPedido(peData.buscarPedidoId(rs.getInt("id_pedido")));
+            detalleActual.setProducto(proData.buscarProductoid(rs.getInt("id_producto")));
+            detalleActual.setCantidadProducto(rs.getInt("cantidad_producto"));
+            detalleActual.setImporte(rs.getDouble("importe"));
+            detalleActual.setEstado(rs.getBoolean("estado")); 
+            
+            
+            detallesPorP.add(detalleActual);
+        }
+        
+        ps.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(DetallePedidoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    return detallesPorP;
+}
+
     
     
     

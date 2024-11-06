@@ -39,7 +39,7 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
      */
     public InternalDetallePedido() {
         initComponents();
-        limpiarDetalles();
+//        limpiarDetalles();
         cargarJcbPedidos();
         cargarJcbProductos();
 //        cargarJcbDetalles();
@@ -187,22 +187,8 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(txProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -227,35 +213,50 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
                         .addGap(128, 128, 128)
                         .addComponent(Guardar))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btSalir)
+                        .addGap(29, 29, 29))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jLabel14)
                         .addGap(26, 26, 26)
                         .addComponent(txIdMod, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64)
-                        .addComponent(btBuscarID)))
+                        .addComponent(btBuscarID))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addGap(51, 51, 51)
-                                                .addComponent(btVer))
-                                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel5))
-                                .addGap(0, 360, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btSalir)
-                                .addGap(39, 39, 39))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82))))
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel4)
+                        .addGap(31, 31, 31)
+                        .addComponent(btVer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,26 +304,22 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(btVer))
-                        .addGap(27, 27, 27)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(409, 409, 409)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btNuevo)
-                            .addComponent(Guardar))
-                        .addGap(44, 44, 44))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btSalir)
-                        .addGap(29, 29, 29))))
+                        .addGap(421, 421, 421)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btNuevo)
+                    .addComponent(Guardar)
+                    .addComponent(btSalir))
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -459,7 +456,10 @@ dispose();        // TODO add your handling code here:
     private void btVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerActionPerformed
 
         modelo.setRowCount(0);
-        cargarTabla();
+        
+        Pedido pedidoActual = (Pedido)(cbPedido.getSelectedItem());
+        
+        cargarTabla(pedidoActual.getIdPedido());
 
     
         
@@ -481,7 +481,7 @@ dispose();        // TODO add your handling code here:
            
             if (detalleActual!= null) {
              
-            txProducto.setText(String.valueOf(detalleActual.getIdDetalle()));
+            txProducto.setText(String.valueOf(detalleActual.toString()));
                 
              txCantidad.setText(String.valueOf(detalleActual.getCantidadProducto()));
              
@@ -577,6 +577,7 @@ dispose();        // TODO add your handling code here:
     public void armarCabecera(){
    
         modelo.addColumn("idPedido");
+        modelo.addColumn("idDetalle");
         modelo.addColumn("Prod");
         modelo.addColumn("cant");
         modelo.addColumn("importe");
@@ -586,46 +587,27 @@ dispose();        // TODO add your handling code here:
     }
     
     //cargar tabla
-    public void cargarTabla(){
+    public void cargarTabla(int id){
       
-        for (DetallePedido listarDetalle : detalleData.listarDetalles()) {
+        for (DetallePedido listarDetalle : detalleData.buscarDetalleIdp(id)) {
             
-            Object [] fila = new Object[4];
+            Object [] fila = new Object[5];
+            
+            System.out.println(listarDetalle.getIdDetalle());
             
             fila[0] = listarDetalle.getPedido().getIdPedido();
-            fila[1] = listarDetalle.getProducto().getNombre();
-            fila[2] = listarDetalle.getCantidadProducto();
-            fila[3] = listarDetalle.getImporte();
+            fila[1] = listarDetalle.getIdDetalle();
+            fila[2] = listarDetalle.getProducto().getNombre();
+            fila[3] = listarDetalle.getCantidadProducto();
+            fila[4] = listarDetalle.getImporte();
             
             
             modelo.addRow(fila);
             
         }
-        
-        
-        
     }
     
-    
-    //METODO PARA LIMPIAR LOS DETALLES QUE TENGAN EL PEDIDO NULO
-   public void limpiarDetalles() {
-       
-    List<Pedido> pedidosNulos = pedidoData.listarPedidoNull();
-    
-    for (Pedido pedido : pedidosNulos) {
-        
-        boolean tieneDetalles = !detalleData.listarDetalles().isEmpty();
-        boolean nEstado = tieneDetalles ? false : true;
-        detalleData.modificarEstado(pedido.getIdPedido(), nEstado);
-        
-    }
-}
+   
 
-    //actualizar internal
-   public void actualizarInternal(){
-       
-       
-       
-   }
-    
+  
 }

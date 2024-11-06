@@ -239,11 +239,11 @@ public class PedidoData {
        public List<Pedido> listarPedidoMozo(int idMesero) {
     String sql = "SELECT * FROM pedido WHERE id_mesero = ?";
     
-    ArrayList<Pedido> pedidos = new ArrayList<>();  // Lista con tipo definido
+    ArrayList<Pedido> pedidos = new ArrayList<>();  
 
     try {
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, idMesero);  // Asignamos el parámetro id_mesero
+        ps.setInt(1, idMesero);  
 
         ResultSet rs = ps.executeQuery();
 
@@ -254,24 +254,60 @@ public class PedidoData {
             pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));
             pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
 
-            // Obtengo el estado de la DB y lo asigno al pedido
+            
             boolean estado = rs.getBoolean("estado");
             System.out.println(estado);
             pedido.setEstado(estado);
 
-            pedidos.add(pedido);  // Agrego el pedido a la lista
+            pedidos.add(pedido);  
         }
 
-        ps.close();  // Cerrar PreparedStatement
+        ps.close();  
 
     } catch (SQLException ex) {
         Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
     }
 
-    return pedidos;  // Retorno la lista de pedidos
+    return pedidos;  
 }
 
           
+//listar pedidos por id mozo y por estado 
+    public List<Pedido> listarPedidoMozof(int idMesero, boolean estado) {
+    String sql = "SELECT * FROM pedido WHERE id_mesero = ? AND estado = ?";
+    ArrayList<Pedido> pedidos = new ArrayList<>();  
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idMesero);  
+        ps.setBoolean(2, estado); 
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Pedido pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("id_pedido"));
+            pedido.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+            pedido.setMesero(moData.buscarMozoId(rs.getInt("id_mesero")));
+            pedido.setFechaPedido(rs.getDate("fecha_pedido").toLocalDate());
+
+            boolean pedidoEstado = rs.getBoolean("estado");
+            System.out.println(pedidoEstado);
+            pedido.setEstado(pedidoEstado);
+
+            pedidos.add(pedido);  
+        }
+
+        ps.close();  
+
+    } catch (SQLException ex) {
+        Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return pedidos;  
+}
+
+
           
       //listar pedidos que sean inactivos
           public List<Pedido> listarPedidoNull(){

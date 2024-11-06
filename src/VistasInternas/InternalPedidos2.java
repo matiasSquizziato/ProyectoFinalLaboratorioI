@@ -4,9 +4,11 @@
  */
 package VistasInternas;
 
+import AccesoADatos.DetallePedidoData;
 import AccesoADatos.MesaData;
 import AccesoADatos.MozoData;
 import AccesoADatos.PedidoData;
+import Entidades.DetallePedido;
 import Entidades.Mesa;
 import Entidades.Mesero;
 import Entidades.Pedido;
@@ -29,6 +31,9 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
     private MesaData meData = new MesaData();
     private PedidoData pedidoData = new PedidoData();
     private MozoData mozoData = new MozoData();
+    
+    private DetallePedidoData deData = new DetallePedidoData();
+    
     private Mesero mozoSel = null;
     Pedido pedidoActual = null;
 
@@ -330,6 +335,16 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                 
                 pedidoData.modificarPedido(pedidoActual);
                 
+//                for (DetallePedido detallePedido : deData.buscarDetalleIdp(pedidoActual.getIdPedido())) {
+//                    
+//                    deData.modificarEstado(detallePedido.getPedido().getIdPedido(), estadoSel);
+//                    
+//                }
+                
+//                //Modifico el estado del detalle segun el estado del pedido
+                deData.modificarEstado(pedidoActual.getIdPedido(), estadoSel);
+                
+                
             }
             
            cargarJcbMesa();
@@ -498,7 +513,7 @@ dispose();        // TODO add your handling code here:
         
         modelo.setRowCount(0);
         
-        for (Pedido pedido : pedidoData.listarPedido()) {
+        for (Pedido pedido : pedidoData.listarPedidoMozof(mozo.getIdMesero(), true)) {
             
             Object [] fila = new Object[5];
             fila [0] = pedido.getIdPedido();
