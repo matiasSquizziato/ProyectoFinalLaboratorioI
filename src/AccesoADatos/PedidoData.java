@@ -435,5 +435,49 @@ public class PedidoData {
 }
 
     
+    //cantidad de pedidos por fecha
+    public int obtenerCantidadPedidos(LocalDate fecha) {
+    int cantidadPedidos = 0;
+
+    String sql = "SELECT COUNT(id_pedido) AS cantidad FROM pedido WHERE fecha_pedido = ?;";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, java.sql.Date.valueOf(fecha));  
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            cantidadPedidos = rs.getInt("cantidad"); 
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla pedido");
+    }
+
+    return cantidadPedidos;
+}
+
+      //cantidad de mesas trabajadas
+    public int obtenerCantidadMesas(LocalDate fecha) {
+    int cantidadMesas = 0;
+
+    String sql = "SELECT COUNT(id_mesa) AS cantidad FROM pedido WHERE fecha_pedido = ?;";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, java.sql.Date.valueOf(fecha));  
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            cantidadMesas = rs.getInt("cantidad"); 
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla pedido");
+    }
+
+    return cantidadMesas;
+}
+    
     
 }

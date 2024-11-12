@@ -175,8 +175,9 @@ public class InternalLoginMozo extends javax.swing.JInternalFrame {
                 LoginMozo.setMeseroActual(mozoActual);
                 JOptionPane.showMessageDialog(null, "Bienvenido! " + mozoActual.getNombre());
                 
+                
             }
-            
+            dispose();
         
         } catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(this, "DEBE INGRESAR UN ELEMENTO VALIDO");

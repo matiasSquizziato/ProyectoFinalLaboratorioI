@@ -6,7 +6,11 @@ package VistasInternas;
 
 import AccesoADatos.MozoData;
 import Entidades.Mesero;
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 /**
  *
@@ -204,6 +208,10 @@ public class InternalAdminMozos extends javax.swing.JInternalFrame {
  
         try{
         
+            restColorText(jtDni);
+            restColorText(jtNombre);
+            restColorText(jtApellido);
+            
         Integer dniSel = Integer.parseInt(jtDni.getText());
         
         String nombreSel = jtNombre.getText();
@@ -212,6 +220,10 @@ public class InternalAdminMozos extends javax.swing.JInternalFrame {
 
         if (apelliSel.isEmpty() || nombreSel.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No puede dejar campos vacios.");
+            setColorText(jtNombre);
+            setColorText(jtApellido);
+            
+         
             return;
         }
 
@@ -233,6 +245,7 @@ public class InternalAdminMozos extends javax.swing.JInternalFrame {
        
     } catch (NumberFormatException nfe){
         JOptionPane.showMessageDialog(null, "DEBE INGRESAR UN DNI VALIDO");
+        setColorText(jtDni);
     }
         
 
@@ -242,6 +255,7 @@ public class InternalAdminMozos extends javax.swing.JInternalFrame {
 
        
         try{
+            restColorText(jtDni);
               Integer dniSel = Integer.parseInt(jtDni.getText());
         
         meseroActual = mozoData.buscarMozoDni(dniSel);
@@ -260,6 +274,7 @@ public class InternalAdminMozos extends javax.swing.JInternalFrame {
         } catch (NumberFormatException ex){
             
             JOptionPane.showMessageDialog(this, "DEBE INGRESAR UN DNI VALIDO");
+            setColorText(jtDni);
             
         }
      
@@ -318,5 +333,19 @@ dispose();        // TODO add your handling code here:
         jtApellido.setText("");
         cbxEstado.setSelected(false);
         
+    }
+
+
+    //metodos para cambiar los border
+    public void setColorText(JTextField textField){
+        
+        textField.setBorder(BorderFactory.createLineBorder(Color.RED,1));
+        
+    }
+    
+    //volver al originar
+    public void  restColorText(JTextField textField) {
+       
+        textField.setBorder(UIManager.getBorder("TextField.border"));
     }
 }

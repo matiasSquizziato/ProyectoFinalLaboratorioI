@@ -8,7 +8,11 @@ import AccesoADatos.ProductoData;
 import Entidades.Mesero;
 import Entidades.Producto;
 import LoginMozo.LoginMozo;
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 /**
  *
@@ -203,6 +207,8 @@ dispose();        // TODO add your handling code here:
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
 
         try{
+            
+            restColorText(txCodigo);
         Integer codSel = Integer.parseInt(txCodigo.getText());
         
         productoActual = proData.buscarProductoCd(codSel);
@@ -219,6 +225,7 @@ dispose();        // TODO add your handling code here:
         } catch (NumberFormatException ex) {
             
             JOptionPane.showMessageDialog(this, "DEBE INGRESAR UN NUMERO VALIDO" + ex.getMessage());
+            setColorText(txCodigo);
             
         }
         
@@ -230,6 +237,12 @@ dispose();        // TODO add your handling code here:
 
         try{
         
+            restColorText(txNombre);
+            restColorText(txCodigo);
+            restColorText(txPrecio);
+            restColorText(txCantidad);
+            
+            
         Integer codSel = Integer.parseInt(txCodigo.getText());
         
         String nombreSel = txNombre.getText();
@@ -239,10 +252,21 @@ dispose();        // TODO add your handling code here:
         
             if (nombreSel.isEmpty()) {
                 
-                JOptionPane.showMessageDialog(null, "NO DEBE DEJAR ESPACIOS EN BLANCO");
+                JOptionPane.showMessageDialog(null, "Debe ingresar un nombre");
+                setColorText(txNombre);
                 return;
                 
+            } if (precioSel == 0) {
+                 JOptionPane.showMessageDialog(null, "Debe ingresar un Precio");
+                setColorText(txPrecio);
+                return;
+            }if (cantiSel == 0) {
+                 JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad");
+                setColorText(txCantidad);
+                return;
             }
+            
+            
         
             Producto producto = null;
         
@@ -266,8 +290,8 @@ dispose();        // TODO add your handling code here:
             }
         
         } catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "DEBE INGRESAR UN NUMERO VALIDO" + ex.getMessage());
-
+            JOptionPane.showMessageDialog(this, "DEBE INGRESAR UN CODIGO" + ex.getMessage());
+            setColorText(txCodigo);
         }
   
 
@@ -310,5 +334,16 @@ dispose();        // TODO add your handling code here:
         txCantidad.setText("");
         
     }
+//metodos para cambiar los border
+    public void setColorText(JTextField textField){
 
+        textField.setBorder(BorderFactory.createLineBorder(Color.RED,1));
+
+    }
+
+    //volver al originar
+    public void  restColorText(JTextField textField) {
+
+        textField.setBorder(UIManager.getBorder("TextField.border"));
+    }
 }
