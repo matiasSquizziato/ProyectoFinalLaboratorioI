@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,10 +57,30 @@ public class FacturaData {
         } catch (SQLException ex) {
             Logger.getLogger(FacturaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-            
         
     }
+    
+    //total facturado
+      public int obtenerCantidadFacturado(LocalDate fecha) {
+    int cantidadFacturado = 0;
+
+    String sql = "SELECT COUNT(total) AS total FROM factura WHERE fecha_factura = ?;";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, java.sql.Date.valueOf(fecha));  
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            cantidadFacturado = rs.getInt("total"); 
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla factura");
+    }
+
+    return cantidadFacturado;
+}
     
     
 }

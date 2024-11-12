@@ -16,6 +16,7 @@ import VistasInternas.InternalMesas;
 import VistasInternas.InternalPedidos2;
 import VistasInternas.InternalProductos;
 import VistasInternas.InternalReservas;
+import VistasInternas.InternalTotalFact;
 import VistasInternas.ListadoInternalMesas;
 import VistasInternas.ListadoInternalMozos;
 import VistasInternas.ListadoInternalPedidos;
@@ -86,6 +87,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         MenuListMesas = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         MenuListPedidos = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        MenuFacturado = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -334,6 +337,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(List);
 
+        jMenu3.setText("Consulta");
+
+        MenuFacturado.setText("Facturado");
+        MenuFacturado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuFacturadoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(MenuFacturado);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -503,6 +518,13 @@ dispose();        // TODO add your handling code here:
         
     }//GEN-LAST:event_MenuListPedidosActionPerformed
 
+    private void MenuFacturadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuFacturadoActionPerformed
+        InternalTotalFact internalFacturado = new InternalTotalFact();
+        escritorio.add(internalFacturado);
+        internalFacturado.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuFacturadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -542,6 +564,7 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JMenu List;
     private javax.swing.JMenuItem MenuDetalles;
     private javax.swing.JMenuItem MenuFactura;
+    private javax.swing.JMenuItem MenuFacturado;
     private javax.swing.JMenuItem MenuListMesas;
     private javax.swing.JMenuItem MenuListMozos;
     private javax.swing.JMenuItem MenuListPedidos;
@@ -562,6 +585,7 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;

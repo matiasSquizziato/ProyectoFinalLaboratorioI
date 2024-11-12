@@ -9,14 +9,18 @@ import AccesoADatos.MesaData;
 import AccesoADatos.ReservaData;
 import Entidades.Mesa;
 import Entidades.Reserva;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Calendar;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
+import javax.swing.UIManager;
 //link para usar el jspinner como set hora
 //https://www.youtube.com/watch?v=Uh77miF-YMY
 
@@ -412,4 +416,18 @@ dispose();        // TODO add your handling code here:
     dateC.setDate(date);
     
 }
+    //metodos para cambiar los border
+    public void setColorText(JTextField textField){
+
+        textField.setBorder(BorderFactory.createLineBorder(Color.RED,1));
+
+    }
+
+    //volver al originar
+    public void  restColorText(JTextField textField) {
+
+        textField.setBorder(UIManager.getBorder("TextField.border"));
+    }
+    
+    
 }

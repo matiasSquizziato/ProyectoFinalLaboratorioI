@@ -67,8 +67,6 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         labelMozo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txIdMozo = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        cbEstado = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         dateC = new com.toedter.calendar.JDateChooser();
         btPedido = new javax.swing.JButton();
@@ -83,8 +81,6 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         brBuscar = new javax.swing.JButton();
         cbPedido = new javax.swing.JComboBox<>();
         jSeparator2 = new javax.swing.JSeparator();
-        labelResultado = new javax.swing.JLabel();
-        btActualizar = new javax.swing.JButton();
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/manejoPedidos.PNG"))); // NOI18N
 
@@ -97,11 +93,9 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
 
         txIdMozo.setEnabled(false);
 
-        jLabel4.setText("Estado:");
-
-        cbEstado.setText("Pendiente/Pagado");
-
         jLabel5.setText("Fecha:");
+
+        dateC.setEnabled(false);
 
         btPedido.setText("Guardar");
         btPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -148,20 +142,10 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Id pedido:");
 
-        brBuscar.setText("Buscar");
+        brBuscar.setText("Cambiar estado a false");
         brBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 brBuscarActionPerformed(evt);
-            }
-        });
-
-        labelResultado.setText("Resultado:");
-
-        btActualizar.setText("Actualizar");
-        btActualizar.setToolTipText("");
-        btActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btActualizarActionPerformed(evt);
             }
         });
 
@@ -171,76 +155,80 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(jLabel7)
-                                .addGap(41, 41, 41)
-                                .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)
-                                .addComponent(brBuscar)
-                                .addGap(50, 50, 50)
-                                .addComponent(btActualizar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(labelMozo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelResultado)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(182, 182, 182)
                                 .addComponent(btVer)
                                 .addGap(106, 106, 106)
-                                .addComponent(btSalir)))
-                        .addGap(0, 23, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel2)
-                    .addComponent(btNuevo))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btSalir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelMozo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btNuevo)
+                                        .addGap(88, 88, 88)
+                                        .addComponent(btPedido))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel2))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txIdMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txIdMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbEstado)
-                            .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(btPedido)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(38, 38, 38)
+                                        .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(55, 55, 55)
+                                        .addComponent(brBuscar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(brBuscar)
                     .addComponent(jLabel7)
-                    .addComponent(btActualizar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(labelResultado)
-                .addGap(18, 18, 18)
+                    .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(brBuscar))
+                .addGap(40, 40, 40)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -248,33 +236,23 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txIdMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(83, 83, 83)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cbEstado))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(6, 6, 6)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btNuevo)
-                    .addComponent(btPedido))
+                    .addComponent(btPedido)
+                    .addComponent(btNuevo))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMozo)
                     .addComponent(jLabel6))
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btVer)
                     .addComponent(btSalir))
-                .addGap(16, 16, 16))
+                .addGap(60, 60, 60))
         );
 
         pack();
@@ -295,7 +273,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         //tengo que buscar el mozo en la db, el metodo devuleve un Mozo
         mozoSel = mozoData.buscarMozoId(idMozoSel);
 
-        boolean estadoSel = cbEstado.isSelected();
+        boolean estadoSel = true;
 
         
         Date fechaActual = dateC.getDate();
@@ -317,36 +295,30 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
                 pedidoData.cargarPedido(pedidoActual, mesaSel, mozoSel);
                 
                 //cambio el estado de la mesa libre a ocupada
-                meData.modificarEstado(mesaSel);
+                meData.modificarEstado(mesaSel,false);
                 
                 //cargo la tabla de pedidos pendies del mozo
                  cargarTabla();
                  
                  //modifico el estado de la mesa
-                 mesaSel.setEstado(false);
-                 
-                
-            } else {
-                System.out.println(estadoSel);
-                pedidoActual.setMesa(mesaSel);
-                pedidoActual.setMesero(mozoSel);
-                pedidoActual.setEstado(estadoSel);
-                pedidoActual.setFechaPedido(fechaSel);
-                
-                pedidoData.modificarPedido(pedidoActual);
-                
-//                for (DetallePedido detallePedido : deData.buscarDetalleIdp(pedidoActual.getIdPedido())) {
-//                    
-//                    deData.modificarEstado(detallePedido.getPedido().getIdPedido(), estadoSel);
-//                    
-//                }
-                
-//                //Modifico el estado del detalle segun el estado del pedido
-                deData.modificarEstado(pedidoActual.getIdPedido(), estadoSel);
-                
-                
+              
             }
-            
+                
+//            } else {
+//                System.out.println(estadoSel);
+////                pedidoActual.setMesa(mesaSel);
+////                pedidoActual.setMesero(mozoSel);
+//                pedidoActual.setEstado(estadoSel);
+////                pedidoActual.setFechaPedido(fechaSel);
+//                
+//                pedidoData.cambiarEstadoPedido(pedidoActual.getIdPedido(), estadoSel);
+//                                
+////              //Modifico el estado del detalle segun el estado del pedido
+//                deData.modificarEstado(pedidoActual.getIdPedido(), estadoSel);
+//                
+//                
+//            }
+           repaint();
            cargarJcbMesa();
             
     } catch (NumberFormatException ex){
@@ -368,7 +340,7 @@ dispose();        // TODO add your handling code here:
     private void btNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevoActionPerformed
         
         pedidoActual = null;
-        labelResultado.setText("");
+        
         
         setHoraActual();
         
@@ -377,70 +349,66 @@ dispose();        // TODO add your handling code here:
 
     private void brBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brBuscarActionPerformed
 
-        try{
-            //tomo el pedido del jcombobox    
+//            tomo el pedido del jcombobox
             Pedido pedidoSel = (Pedido) cbPedido.getSelectedItem();
-            //busco por id 
+            //busco por id
             pedidoActual = pedidoData.buscarPedidoId(pedidoSel.getIdPedido());
+        
+            pedidoData.cambiarEstadoPedido(pedidoActual.getIdPedido(), false);
             
-            if (pedidoActual != null) {
-                
-                //cargo el jcomboBox de mesa
-                cbMesa.setSelectedItem(pedidoActual.getMesa());
-                
-                //cargo un mesero para consultar su id
-                Mesero mesero = pedidoActual.getMesero();
-                //seteo el id 
-                txIdMozo.setText(String.valueOf(mesero.getIdMesero()));
-
-                //modificamos el estado
-//                cbEstado.setSelected(pedidoActual.isEstado());
-                
-                LocalDate localDate = pedidoActual.getFechaPedido();
-                //convierto el localdate a dae solo
-                java.util.Date date = java.util.Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                //y la fecha
-                dateC.setDate(date);
-                
-                labelResultado.setText("Resultado: " +pedidoActual.toString());
-                
-            } 
-            
-            
-            
-            
-        } catch(NumberFormatException ex){
-            
-            JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN ID VALIDO");
-            
-        }
+            meData.modificarEstado(pedidoActual.getMesa(), true);
         
         
+//        try{
+//            //tomo el pedido del jcombobox
+//            Pedido pedidoSel = (Pedido) cbPedido.getSelectedItem();
+//            //busco por id
+//            pedidoActual = pedidoData.buscarPedidoId(pedidoSel.getIdPedido());
+//
+//            if (pedidoActual != null) {
+//
+//                //cargo el jcomboBox de mesa
+//                cbMesa.setSelectedItem(pedidoActual.getMesa());
+//
+//                //cargo un mesero para consultar su id
+//                Mesero mesero = pedidoActual.getMesero();
+//                //seteo el id
+//                txIdMozo.setText(String.valueOf(mesero.getIdMesero()));
+//
+//                //modificamos el estado
+//                //                cbEstado.setSelected(pedidoActual.isEstado());
+//
+//                LocalDate localDate = pedidoActual.getFechaPedido();
+//                //convierto el localdate a dae solo
+//                java.util.Date date = java.util.Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+//                //y la fecha
+//                dateC.setDate(date);
+//
+//                labelResultado.setText("Resultado: " +pedidoActual.toString());
+//
+//            }
+//
+//        } catch(NumberFormatException ex){
+//
+//            JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN ID VALIDO");
+//
+//        }
 
     }//GEN-LAST:event_brBuscarActionPerformed
-
-    private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
-        
-    
-
-    }//GEN-LAST:event_btActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brBuscar;
-    private javax.swing.JButton btActualizar;
     private javax.swing.JButton btNuevo;
     private javax.swing.JButton btPedido;
     private javax.swing.JButton btSalir;
     private javax.swing.JButton btVer;
-    private javax.swing.JCheckBox cbEstado;
     private javax.swing.JComboBox<Mesa> cbMesa;
     private javax.swing.JComboBox<Pedido> cbPedido;
     private com.toedter.calendar.JDateChooser dateC;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -449,7 +417,6 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelMozo;
-    private javax.swing.JLabel labelResultado;
     private javax.swing.JTextField txIdMozo;
     // End of variables declaration//GEN-END:variables
 
@@ -466,7 +433,7 @@ dispose();        // TODO add your handling code here:
     //cargo el jcomboBox
     public void cargarJcbPedido(){
     
-    for (Pedido pedido : pedidoData.listarPedido()) {
+    for (Pedido pedido : pedidoData.listarPedidoAct()) {
         
         cbPedido.addItem(pedido);
         

@@ -6,7 +6,11 @@ package VistasInternas;
 
 import AccesoADatos.MesaData;
 import Entidades.Mesa;
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 /**
  *
@@ -164,6 +168,8 @@ public class InternalMesas extends javax.swing.JInternalFrame {
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
 
         try{
+            restColorText(jtNumeroMesa);
+            
         Integer numMesa = Integer.parseInt(jtNumeroMesa.getText());
         
         mesaActual = meData.buscarMesa(numMesa);
@@ -178,6 +184,7 @@ public class InternalMesas extends javax.swing.JInternalFrame {
         
         } catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(this,"Debe ingresar un numero valido");
+            setColorText(jtNumeroMesa);
         }
 
     }//GEN-LAST:event_btBuscarActionPerformed
@@ -189,14 +196,21 @@ dispose();        // TODO add your handling code here:
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
 
         try{
+        restColorText(jtNumeroMesa);
+        restColorText(jtCapacidad);
+        
         
         Integer numMesa = Integer.parseInt(jtNumeroMesa.getText());
         Integer capMesa = Integer.parseInt(jtCapacidad.getText());
         boolean estadoSel = cbxEstado.isSelected();
         
-            if (numMesa == null || capMesa == null) {
-                
-                JOptionPane.showMessageDialog(this, "No puede dejar campos vacios");
+            if (numMesa == null) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar el numero de la mesa");
+                setColorText(jtNumeroMesa);
+                return;
+            } if( capMesa == null){
+                JOptionPane.showMessageDialog(this, "Debe ingresar la capacidad de la mesa");
+                setColorText(jtCapacidad);
                 return;
             }
         
@@ -218,6 +232,7 @@ dispose();        // TODO add your handling code here:
             
         }catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "debe ingresar un numero de mesa valido");
+            setColorText(jtNumeroMesa);
         }
 
 
@@ -256,4 +271,18 @@ dispose();        // TODO add your handling code here:
         cbxEstado.setSelected(false);
         
     }
+ 
+ //metodos para cambiar los border
+    public void setColorText(JTextField textField){
+
+        textField.setBorder(BorderFactory.createLineBorder(Color.RED,1));
+
+    }
+
+    //volver al originar
+    public void  restColorText(JTextField textField) {
+
+        textField.setBorder(UIManager.getBorder("TextField.border"));
+    }
+ 
 }

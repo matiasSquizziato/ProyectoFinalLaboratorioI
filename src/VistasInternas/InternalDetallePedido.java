@@ -11,9 +11,14 @@ import AccesoADatos.ProductoData;
 import Entidades.DetallePedido;
 import Entidades.Pedido;
 import Entidades.Producto;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -86,6 +91,8 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         txIdMod = new javax.swing.JTextField();
         btBuscarID = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
 
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -141,9 +148,7 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel9.setText("Estado:");
-
-        cbEstado.setText("Activo/Inactivo");
+        jLabel9.setText("Cancelar detalle:");
 
         brVerImporte.setText("Ver importe");
         brVerImporte.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +179,7 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Resultado:");
 
-        jLabel14.setText("Id a modificar:");
+        jLabel14.setText("Modificar un detalle por id");
 
         btBuscarID.setText("Buscar");
         btBuscarID.addActionListener(new java.awt.event.ActionListener() {
@@ -183,30 +188,14 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel10.setText("Se crea o se modifica mediante el pedido que este seleccionado aqui debajo.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel3))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addComponent(brVerImporte))
-                            .addComponent(cbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(151, 151, 151)
                         .addComponent(btNuevo)
@@ -215,36 +204,30 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                            .addComponent(jLabel13)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(32, 32, 32)
+                                .addComponent(txIdMod, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
+                                .addComponent(btBuscarID))
+                            .addComponent(txProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btSalir)
-                        .addGap(29, 29, 29))))
+                .addComponent(btSalir)
+                .addGap(29, 29, 29))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(6, 6, 6)
                         .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel14)
-                        .addGap(26, 26, 26)
-                        .addComponent(txIdMod, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(btBuscarID))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -252,59 +235,48 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
                         .addGap(31, 31, 31)
                         .addComponent(btVer))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))))
+                .addGap(0, 8, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel3))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(brVerImporte))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbProductos, javax.swing.GroupLayout.Alignment.LEADING, 0, 201, Short.MAX_VALUE)
+                                .addComponent(cbPedido, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel9)
+                        .addGap(26, 26, 26)
+                        .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(txIdMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btBuscarID))
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(txProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(cbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3)))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(brVerImporte))
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(cbEstado))
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(19, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,7 +286,55 @@ public class InternalDetallePedido extends javax.swing.JInternalFrame {
                             .addComponent(btVer))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(421, 421, 421)))
+                        .addGap(421, 421, 421))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(txIdMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btBuscarID))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(cbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(33, 33, 33)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(txCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3)))
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(brVerImporte))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(cbEstado)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btNuevo)
                     .addComponent(Guardar)
@@ -332,6 +352,9 @@ dispose();        // TODO add your handling code here:
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
    
         try{
+            restColorComboBox(cbPedido);
+            restColorText(txCantidad);
+            
             
             Pedido pedido = (Pedido) cbPedido.getSelectedItem();
             
@@ -345,10 +368,15 @@ dispose();        // TODO add your handling code here:
         
             Integer cantSel = Integer.parseInt(txCantidad.getText());
             
-            
-               if (cantSel == 0 && cbPedido == null) {
+            if (cbPedido == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido");
+                setColorComboBox(cbPedido);
+                return;
+                
+            } if (cantSel == 0) {
                 
                 JOptionPane.showMessageDialog(this, "No puede dejar la cantidad en 0");
+                setColorText(txCantidad);
                 return;
             }
 
@@ -361,7 +389,7 @@ dispose();        // TODO add your handling code here:
             txImporte.setText(precioStr);
   
             
-            boolean estadoSel = cbEstado.isSelected();
+            boolean estadoSel = true;
             
          
             if (detalleActual == null) {
@@ -369,6 +397,7 @@ dispose();        // TODO add your handling code here:
                 if (cantSel > productoAct.getCantidad()) {
                         
                         JOptionPane.showMessageDialog(this, "No cuenta con esa cantidad de stock: " + cantSel + "de: " + productoAct.getNombre());
+                        setColorText(txCantidad);
                         return;
                     }
                 
@@ -389,6 +418,15 @@ dispose();        // TODO add your handling code here:
                
                 detalleActual.setProducto(productoAct);
                 detalleActual.setCantidadProducto(cantSel);
+                if (cbEstado.isSelected()) {
+                    
+                int cantFinal = productoAct.getCantidad() + cantSel;
+                    
+                //lo actualizo en la db
+                proData.modificarProductoStock(productoAct,cantFinal);
+          
+                    
+                }
                 detalleActual.setEstado(estadoSel);
                 
                 detalleData.modificarDetalle(detalleActual);
@@ -399,7 +437,8 @@ dispose();        // TODO add your handling code here:
             
             
         } catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "debe ingresar un dato valido" + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error" + ex.getMessage());
+            
             
         }
 
@@ -417,7 +456,7 @@ dispose();        // TODO add your handling code here:
     private void brVerImporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brVerImporteActionPerformed
 
         try{
-            
+            restColorText(txCantidad);
             Integer cantSel = Integer.parseInt(txCantidad.getText());
 
             if (cantSel != null) {
@@ -434,6 +473,7 @@ dispose();        // TODO add your handling code here:
         } else {
             
             JOptionPane.showMessageDialog(this, "debe seleccionar una cantidad para ver el importe");
+            setColorText(txCantidad);
             return;
         } 
         
@@ -441,16 +481,11 @@ dispose();        // TODO add your handling code here:
             
         } catch(NumberFormatException ex){
             
-            JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN ELEMENTO VALIDO");
+            JOptionPane.showMessageDialog(this, "Debe ingresar una elemento valido en cantiad");
+            setColorText(txCantidad);
             
         }
         
-          
-           
-        
-        
-        
-
     }//GEN-LAST:event_brVerImporteActionPerformed
 
     private void btVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerActionPerformed
@@ -471,29 +506,34 @@ dispose();        // TODO add your handling code here:
 
     private void btBuscarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarIDActionPerformed
 
-    try{
-          
-            Integer idDetalle = Integer.parseInt(txIdMod.getText());
-        
-            detalleActual = detalleData.buscarDetalle(idDetalle);
-       
-            System.out.println(idDetalle);
-           
-            if (detalleActual!= null) {
+        try {
              
-            txProducto.setText(String.valueOf(detalleActual.toString()));
-                
-             txCantidad.setText(String.valueOf(detalleActual.getCantidadProducto()));
-             
-       
-            }
-  
-        }catch (NumberFormatException ex){
-            
-            JOptionPane.showMessageDialog(null, "no ha ingresado un valor correcto" + ex.getMessage());
-        }
-         
+         restColorText(txIdMod);
 
+            
+        Integer idDetalle = Integer.parseInt(txIdMod.getText());
+
+        
+         detalleActual = detalleData.buscarDetalle(idDetalle);
+        System.out.println(idDetalle);
+
+        if (detalleActual != null) {
+            
+        txProducto.setText(detalleActual.toString());
+        txCantidad.setText(String.valueOf(detalleActual.getCantidadProducto()));
+        
+         } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún detalle con el ID ingresado.");
+            setColorText(txIdMod); 
+         }
+
+            }   catch (NumberFormatException ex) {
+         
+         
+        JOptionPane.showMessageDialog(null, "Debe ingresar un número válido en el campo de ID.");
+        setColorText(txIdMod);
+        
+      }
 
 
     }//GEN-LAST:event_btBuscarIDActionPerformed
@@ -520,6 +560,7 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JComboBox<Pedido> cbPedido;
     private javax.swing.JComboBox<Producto> cbProductos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -534,6 +575,7 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txCantidad;
     private javax.swing.JTextField txIdMod;
@@ -608,6 +650,27 @@ dispose();        // TODO add your handling code here:
     }
     
    
+//metodos para cambiar los border
+    public void setColorText(JTextField textField){
 
+        textField.setBorder(BorderFactory.createLineBorder(Color.RED,1));
+
+    }
+
+    //volver al originar
+    public void  restColorText(JTextField textField) {
+
+        textField.setBorder(UIManager.getBorder("TextField.border"));
+    }
   
+     // Método para cambiar el borde de un JComboBox a color rojo
+    public static void setColorComboBox(JComboBox<?> comboBox) {
+        comboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+    }
+
+    // Método para restablecer el borde original de un JComboBox
+    public static void restColorComboBox(JComboBox<?> comboBox) {
+        comboBox.setBorder(UIManager.getBorder("ComboBox.border"));
+    }
+    
 }

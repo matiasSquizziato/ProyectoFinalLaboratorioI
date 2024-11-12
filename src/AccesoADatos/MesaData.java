@@ -158,25 +158,23 @@ public  Mesa buscarMesaId(int idMesa) {
     }
     
     //modificar el estado de una mesa
-    public void modificarEstado(Mesa mesa){
-         String sql = "UPDATE mesa SET estado = ? WHERE id_mesa=?";
+   public void modificarEstado(Mesa mesa, boolean estado) {
+    String sql = "UPDATE mesa SET estado = ? WHERE id_mesa = ?";
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
         
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            
-            ps.setBoolean(1, !mesa.isEstado());
-            ps.setInt(2, mesa.getIdMesa());
-            
-           ps.executeUpdate();
-            
-            
-            
-        } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error al ingrear a la tabla mesa: " + ex.getMessage());
-        }
+        ps.setBoolean(1, estado);
+        ps.setInt(2, mesa.getIdMesa());
         
+        ps.executeUpdate();
+        ps.close();
         
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla mesa: " + ex.getMessage());
     }
+}
+
     
     //Listado de mesas activas
     public List<Mesa> listadoMesasaA(){
