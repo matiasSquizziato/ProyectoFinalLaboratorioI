@@ -8,17 +8,25 @@ import AccesoADatos.DetallePedidoData;
 import AccesoADatos.MesaData;
 import AccesoADatos.MozoData;
 import AccesoADatos.PedidoData;
+import AccesoADatos.ProductoData;
 import Entidades.DetallePedido;
 import Entidades.Mesa;
 import Entidades.Mesero;
 import Entidades.Pedido;
+import Entidades.Producto;
 import LoginMozo.LoginMozo;
+import static VistasInternas.InternalDetallePedido.restColorComboBox;
+import static VistasInternas.InternalDetallePedido.setColorComboBox;
 import java.awt.Color;
+import static java.awt.Color.green;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,10 +39,13 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
     private MesaData meData = new MesaData();
     private PedidoData pedidoData = new PedidoData();
     private MozoData mozoData = new MozoData();
+    private ProductoData proData = new ProductoData();
+    
     
     private DetallePedidoData deData = new DetallePedidoData();
     
     private Mesero mozoSel = null;
+    private DetallePedido detalleActual = null;
     Pedido pedidoActual = null;
 
     
@@ -49,6 +60,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         usuarioLog();
         setFecha();
         armarCabecera();
+        cargarJcbProductos();
       
     }
 
@@ -78,9 +90,26 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         btVer = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        brBuscar = new javax.swing.JButton();
+        btEliminar = new javax.swing.JButton();
         cbPedido = new javax.swing.JComboBox<>();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        cbProductos = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txCantidad = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txImporte = new javax.swing.JTextField();
+        btGuardar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
+
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/manejoPedidos.PNG"))); // NOI18N
 
@@ -97,7 +126,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
 
         dateC.setEnabled(false);
 
-        btPedido.setText("Guardar");
+        btPedido.setText("Iniciar Pedido!");
         btPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPedidoActionPerformed(evt);
@@ -111,7 +140,7 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
             }
         });
 
-        btNuevo.setText("Nuevo");
+        btNuevo.setText("Limpiar ");
         btNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNuevoActionPerformed(evt);
@@ -142,10 +171,40 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Id pedido:");
 
-        brBuscar.setText("Cambiar estado a false");
-        brBuscar.addActionListener(new java.awt.event.ActionListener() {
+        btEliminar.setText("Eliminar ");
+        btEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brBuscarActionPerformed(evt);
+                btEliminarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Una vez hecho un pedido, debe cargar los detalles.");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Quiero hacer un nuevo pedido.");
+
+        jLabel9.setText("Producto:");
+
+        jLabel10.setText("Cantidad:");
+
+        jLabel11.setText("Importe:");
+
+        btGuardar.setText("Guardar pedido");
+        btGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btGuardarMouseEntered(evt);
+            }
+        });
+        btGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Ver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -155,110 +214,147 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 2, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(33, 33, 33)
+                            .addComponent(jLabel3)
+                            .addGap(18, 18, 18)
+                            .addComponent(txIdMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btPedido))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(39, 39, 39)
+                            .addComponent(jLabel8)
+                            .addGap(103, 103, 103)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(31, 31, 31)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                                        .addComponent(jSeparator2))))
+                            .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(182, 182, 182)
-                                .addComponent(btVer)
-                                .addGap(106, 106, 106)
-                                .addComponent(btSalir))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelMozo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(132, 132, 132)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btNuevo)
-                                        .addGap(88, 88, 88)
-                                        .addComponent(btPedido))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel2))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txIdMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(55, 55, 55)
-                                        .addComponent(brBuscar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(jLabel7)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jLabel9)
+                                        .addComponent(jLabel11)))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cbProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(35, 35, 35)
+                                        .addComponent(btEliminar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txImporte, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txCantidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(26, 26, 26)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelMozo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(btNuevo)
+                        .addGap(85, 85, 85)
+                        .addComponent(btVer)
+                        .addGap(115, 115, 115)
+                        .addComponent(btSalir)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btGuardar)
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel5)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(dateC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txIdMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPedido))
+                .addGap(17, 17, 17)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cbPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(brBuscar))
-                .addGap(40, 40, 40)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btEliminar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txIdMozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(83, 83, 83)
+                    .addComponent(cbProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btPedido)
-                    .addComponent(btNuevo))
+                    .addComponent(jLabel10)
+                    .addComponent(txCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(13, 13, 13)
+                .addComponent(btGuardar)
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMozo)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(labelMozo))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btNuevo)
                     .addComponent(btVer)
                     .addComponent(btSalir))
-                .addGap(60, 60, 60))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPedidoActionPerformed
+
+
         
         try{
             
@@ -320,6 +416,8 @@ public class InternalPedidos2 extends javax.swing.JInternalFrame {
 //            }
            repaint();
            cargarJcbMesa();
+           limpiarJcbPedido();
+           cargarJcbPedido();
             
     } catch (NumberFormatException ex){
         
@@ -347,8 +445,12 @@ dispose();        // TODO add your handling code here:
 
     }//GEN-LAST:event_btNuevoActionPerformed
 
-    private void brBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brBuscarActionPerformed
+    private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
 
+        
+        //cuando elimino el pedido por fuerza mayot
+        //cambio el estado de todo lo que tiene que ver con el
+        //como la mesa, y los detalles
 //            tomo el pedido del jcombobox
             Pedido pedidoSel = (Pedido) cbPedido.getSelectedItem();
             //busco por id
@@ -357,6 +459,12 @@ dispose();        // TODO add your handling code here:
             pedidoData.cambiarEstadoPedido(pedidoActual.getIdPedido(), false);
             
             meData.modificarEstado(pedidoActual.getMesa(), true);
+            
+            deData.modificarEstado(pedidoActual.getIdPedido(),false);
+            
+            
+            //if pedido tiene detalles, se perderan x y x productos del stock
+           
         
         
 //        try{
@@ -394,30 +502,158 @@ dispose();        // TODO add your handling code here:
 //
 //        }
 
-    }//GEN-LAST:event_brBuscarActionPerformed
+    }//GEN-LAST:event_btEliminarActionPerformed
+
+    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
+
+ try{
+            restColorComboBox(cbPedido);
+            restColorText(txCantidad);
+            
+            
+            Pedido pedido = (Pedido) cbPedido.getSelectedItem();
+            
+            int idPedido = pedido.getIdPedido();
+            pedidoData.buscarPedidoId(idPedido);
+            
+            
+            Producto productoAct = (Producto) cbProductos.getSelectedItem();
+            int  idProducto = productoAct.getIdProducto();
+            
+        
+            Integer cantSel = Integer.parseInt(txCantidad.getText());
+            
+            if (cbPedido == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un pedido");
+                setColorComboBox(cbPedido);
+                return;
+                
+            } if (cantSel == 0) {
+                
+                JOptionPane.showMessageDialog(this, "No puede dejar la cantidad en 0");
+                setColorText(txCantidad);
+                return;
+            }
+
+            //saco el importe del detalle 
+            Double precio =  productoAct.getPrecio();
+            
+            Double precioFinal = cantSel * precio ;
+            
+           String precioStr = String.valueOf(precioFinal);
+            txImporte.setText(precioStr);
+  
+            
+            boolean estadoSel = true;
+            
+         
+            if (detalleActual == null) {
+                
+                if (cantSel > productoAct.getCantidad()) {
+                        
+                        JOptionPane.showMessageDialog(this, "No cuenta con esa cantidad de stock: " + cantSel + "de: " + productoAct.getNombre());
+                        setColorText(txCantidad);
+                        return;
+                    }
+                
+                 //calculo el stock actual
+                int cantFinal = productoAct.getCantidad() - cantSel;
+                    
+                //lo actualizo en la db
+                proData.modificarProductoStock(productoAct,cantFinal);
+          
+                
+                detalleActual = new DetallePedido(pedido,productoAct,cantSel,precioFinal,estadoSel);
+                deData.cargarDetalle(detalleActual, pedido, productoAct);
+                
+            } 
+            
+        } catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Error" + ex.getMessage());
+            
+            
+        }
+
+ 
+      
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGuardarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+ try{
+            restColorText(txCantidad);
+            Integer cantSel = Integer.parseInt(txCantidad.getText());
+
+            if (cantSel != null) {
+           
+           Producto productoAct = (Producto) cbProductos.getSelectedItem();
+           Double precio =  productoAct.getPrecio();
+
+           Double precioFinal = cantSel * precio ;
+            
+           String precioStr = String.valueOf(precioFinal);
+           txImporte.setText(precioStr);
+            
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(this, "debe seleccionar una cantidad para ver el importe");
+            setColorText(txCantidad);
+            return;
+        } 
+        
+            
+            
+        } catch(NumberFormatException ex){
+            
+            JOptionPane.showMessageDialog(this, "Debe ingresar una elemento valido en cantiad");
+            setColorText(txCantidad);
+            
+        }    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btGuardarMouseEntered
+btGuardar.setBackground(green);
+//    btGuardar.setBorder(BorderFactory.createLineBorder(Color.GREEN, 2));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGuardarMouseEntered
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+    btGuardar.setBackground(null);    }//GEN-LAST:event_formMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton brBuscar;
+    private javax.swing.JButton btEliminar;
+    private javax.swing.JButton btGuardar;
     private javax.swing.JButton btNuevo;
     private javax.swing.JButton btPedido;
     private javax.swing.JButton btSalir;
     private javax.swing.JButton btVer;
     private javax.swing.JComboBox<Mesa> cbMesa;
     private javax.swing.JComboBox<Pedido> cbPedido;
+    private javax.swing.JComboBox<Producto> cbProductos;
     private com.toedter.calendar.JDateChooser dateC;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelMozo;
+    private javax.swing.JTextField txCantidad;
     private javax.swing.JTextField txIdMozo;
+    private javax.swing.JTextField txImporte;
     // End of variables declaration//GEN-END:variables
 
 //cargo el jcomboBox
@@ -439,6 +675,17 @@ dispose();        // TODO add your handling code here:
         
     }
 }
+    
+       //Cargar jcb productos
+    public void cargarJcbProductos(){
+        
+        for (Producto producto : proData.listarProductos()) {
+            
+           cbProductos.addItem(producto);
+            
+        }  
+    }
+    
     
 //cargo el id del mozo iniciado
     public void usuarioLog(){
@@ -510,5 +757,19 @@ dispose();        // TODO add your handling code here:
         cbPedido.addItem(null);
 
     }
+    
+     //metodos para cambiar los border
+    public void setColorText(JTextField textField){
+        
+        textField.setBorder(BorderFactory.createLineBorder(Color.RED,1));
+        
+    }
+    
+    //volver al originar
+    public void  restColorText(JTextField textField) {
+       
+        textField.setBorder(UIManager.getBorder("TextField.border"));
+    }
+    
     
 }
