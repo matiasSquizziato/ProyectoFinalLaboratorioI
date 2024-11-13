@@ -88,7 +88,7 @@ public class Producto {
     
     @Override
     public String toString() {
-        return  nombre + ", sock: " + cantidad;
+        return  nombre + ", stock: " + cantidad;
     }
 
    

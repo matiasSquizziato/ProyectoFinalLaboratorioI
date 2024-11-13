@@ -42,6 +42,7 @@ public class InternalFactura extends javax.swing.JInternalFrame {
     public InternalFactura() {
         initComponents();
         cargarJcbPedidos();
+        setHoraActual();
     }
 
     /**
@@ -73,7 +74,7 @@ public class InternalFactura extends javax.swing.JInternalFrame {
         labelMozo = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txNumDiv = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btDiv = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
 
@@ -132,10 +133,10 @@ public class InternalFactura extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Dividir la cuenta:");
 
-        jButton1.setText("÷");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btDiv.setText("÷");
+        btDiv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btDivActionPerformed(evt);
             }
         });
 
@@ -173,7 +174,7 @@ public class InternalFactura extends javax.swing.JInternalFrame {
                                 .addGap(163, 163, 163)
                                 .addComponent(txNumDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)
-                                .addComponent(jButton1)))
+                                .addComponent(btDiv)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +249,7 @@ public class InternalFactura extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txNumDiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btDiv))
                 .addGap(38, 38, 38)
                 .addComponent(jLabel8)
                 .addGap(37, 37, 37)
@@ -266,90 +267,82 @@ public class InternalFactura extends javax.swing.JInternalFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
 
-        try{
-            
-            Pedido pedidoActual = (Pedido) cbPedidos.getSelectedItem();
-            peData.buscarPedidoId(pedidoActual.getIdPedido());
-            
-            if (pedidoActual != null) {
-                
-                //llamo al metodo que me trae el importe 
-                double  subTotal = 0;
-                for (DetallePedido detallePedido : deData.importesPorId(pedidoActual.getIdPedido())) {
-                    
-                 subTotal += detallePedido.getImporte();
-                 //se lo cargo al textField
-                 txSubtotal.setText(String.valueOf(subTotal));
-                    
-                }
-                
-                //pasamos a la fehca
-                LocalDate localDate = pedidoActual.getFechaPedido();
-                java.util.Date date = java.util.Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                    
-                dateC.setDate(date);
-                
-                labelMozo.setText("Factura expedida por : " +pedidoActual.getMesero().toString());
-            }
-            
-            
-            
-        }catch (NumberFormatException ex){
-            
-            JOptionPane.showMessageDialog(this, "debe ingresar un pedido");
-            setColorComboBox(cbPedidos);
-            
-        }
+      try{
+    Pedido pedidoActual = (Pedido) cbPedidos.getSelectedItem();
+    
+    if (pedidoActual == null) {
+        JOptionPane.showMessageDialog(null, "No tiene ningún pedido");
+        setColorComboBox(cbPedidos);
+        return;
+    }
+    
+    peData.buscarPedidoId(pedidoActual.getIdPedido());
+    
+    double subTotal = 0;
+    for (DetallePedido detallePedido : deData.importesPorId(pedidoActual.getIdPedido())) {
+        subTotal += detallePedido.getImporte();
+        txSubtotal.setText(String.valueOf(subTotal));
+    }
+    
+    LocalDate localDate = pedidoActual.getFechaPedido();
+    java.util.Date date = java.util.Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    dateC.setDate(date);
+    
+    labelMozo.setText("Factura expedida por : " + pedidoActual.getMesero().toString());  
+} catch (NumberFormatException ex) {
+    JOptionPane.showMessageDialog(this, "Debe ingresar un pedido");
+    setColorComboBox(cbPedidos);
+}
+
 
 
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void brVerTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brVerTotalActionPerformed
  
+                                                 
+    try {
+        Pedido pedidoActual = (Pedido) cbPedidos.getSelectedItem();
         
-            Pedido pedidoActual = (Pedido) cbPedidos.getSelectedItem();
+        if (pedidoActual != null) {
+            // Verificar si existe el pedido
             peData.buscarPedidoId(pedidoActual.getIdPedido());
             
-            if (pedidoActual != null) {
+            double subTotal = 0;
+            for (DetallePedido detallePedido : deData.importesPorId(pedidoActual.getIdPedido())) {
+                subTotal += detallePedido.getImporte();
+            }
+            
+            txSubtotal.setText(String.valueOf(subTotal));
+            
+            // Obtener la fecha del pedido
+            LocalDate localDate = pedidoActual.getFechaPedido();
+            java.util.Date date = java.util.Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            dateC.setDate(date);
+            
+            labelMozo.setText("Factura expedida por : " + pedidoActual.getMesero().toString());
+            
+            if (cbRecargo.isSelected()) {
+                double precFinal = 0;
+                double importe = 0;
+                double recargo = 0.15;
                 
-                //llamo al metodo que me trae el importe 
-                double  subTotal = 0;
-                for (DetallePedido detallePedido : deData.importesPorId(pedidoActual.getIdPedido())) {
-                    
-                 subTotal += detallePedido.getImporte();
-                 //se lo cargo al textField
-                 txSubtotal.setText(String.valueOf(subTotal));
-                    
-                }
+                importe = subTotal * recargo;
+                precFinal = importe + subTotal;
                 
-                //pasamos a la fehca
-                LocalDate localDate = pedidoActual.getFechaPedido();
-                java.util.Date date = java.util.Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                    
-                dateC.setDate(date);
-                
-                labelMozo.setText("Factura expedida por : " +pedidoActual.getMesero().toString());
-                
-                if (cbRecargo.isSelected()) {
-                    
-                    double precFinal = 0;
-                    double importe = 0;
-                    double recargo = 0.15;
-                    
-                    importe = subTotal * recargo;
-                    
-                    precFinal = importe + subTotal;
-                    
-                    txTotal.setText(String.valueOf(precFinal));
-                    
-                } else{
-                    
-                    txTotal.setText(String.valueOf(subTotal));
-                }
-                
-            } 
-        
-        
+                txTotal.setText(String.valueOf(precFinal));
+            } else {
+                txTotal.setText(String.valueOf(subTotal));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningún pedido");
+            setColorComboBox(cbPedidos);
+        }
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Error al calcular el total", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+
 
     }//GEN-LAST:event_brVerTotalActionPerformed
 
@@ -408,10 +401,16 @@ public class InternalFactura extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btSalirActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btDivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDivActionPerformed
+
+       
       
+        
     Pedido pedidoActual = (Pedido) cbPedidos.getSelectedItem();
     Date fechaSel = dateC.getDate();
+     if (pedidoActual != null) {
+              btDiv.setEnabled(true);
+        }
     LocalDate fechaPed = fechaSel.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     restColorComboBox(cbPedidos);
     try {
@@ -443,19 +442,19 @@ public class InternalFactura extends javax.swing.JInternalFrame {
 
 
 // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btDivActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton brVerTotal;
     private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btDiv;
     private javax.swing.JButton btGuardar;
     private javax.swing.JButton btNuevo;
     private javax.swing.JButton btSalir;
     private javax.swing.JComboBox<Pedido> cbPedidos;
     private javax.swing.JCheckBox cbRecargo;
     private com.toedter.calendar.JDateChooser dateC;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -472,6 +471,15 @@ public class InternalFactura extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txTotal;
     // End of variables declaration//GEN-END:variables
 
+    public void setHoraActual(){
+        
+    LocalDate fechaActual = LocalDate.now();
+    Date date = Date.from(fechaActual.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    
+    dateC.setDate(date);
+    
+}
+    
     //Cargar jcb pedidos
     
     public void cargarJcbPedidos(){
