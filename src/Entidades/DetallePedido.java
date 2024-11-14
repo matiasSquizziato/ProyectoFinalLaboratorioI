@@ -84,7 +84,7 @@ public class DetallePedido {
 
     @Override
     public String toString() {
-        return "id" + idDetalle + ", pedido=" + pedido + ", pdct" + producto + ", cant" + cantidadProducto + ", $$" + importe + ",est" + estado;
+        return "id" + idDetalle + producto + ", cant" + cantidadProducto + ", $$" + importe;
     }
 
     

@@ -121,6 +121,11 @@ public class InternalFactura extends javax.swing.JInternalFrame {
         });
 
         btNuevo.setText("Nuevo");
+        btNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNuevoActionPerformed(evt);
+            }
+        });
 
         btGuardar.setText("Guardar");
         btGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -195,9 +200,7 @@ public class InternalFactura extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelMozo)
-                                    .addComponent(jLabel3))))
+                                .addComponent(jLabel3)))
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -211,7 +214,10 @@ public class InternalFactura extends javax.swing.JInternalFrame {
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(labelMozo)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -374,7 +380,7 @@ public class InternalFactura extends javax.swing.JInternalFrame {
 
   
     if (facturaActual == null) {
-          Factura facturaActual = new Factura(pedidoActual, totalFinal, fechaPed);
+          Factura facturaActual = new Factura(pedidoActual, totalFinal, fechaPed,1);
         faData.guardarFactura(facturaActual, pedidoActual);
         
         peData.cambiarEstadoPedido(pedidoActual.getIdPedido(), false);
@@ -386,8 +392,8 @@ public class InternalFactura extends javax.swing.JInternalFrame {
     Mesa mesaActual = pedidoActual.getMesa();
     
         meData.modificarEstado(mesaActual, true);
-        
-
+     
+    limpiarJcbPedido();
 } catch (NumberFormatException ex) {
     JOptionPane.showMessageDialog(this, "Debe ingresar un pedido: ");
     setColorComboBox(cbPedidos);
@@ -405,44 +411,60 @@ public class InternalFactura extends javax.swing.JInternalFrame {
 
        
       
-        
     Pedido pedidoActual = (Pedido) cbPedidos.getSelectedItem();
     Date fechaSel = dateC.getDate();
-     if (pedidoActual != null) {
-              btDiv.setEnabled(true);
-        }
+    if (pedidoActual != null) {
+    btDiv.setEnabled(true);
+    }
     LocalDate fechaPed = fechaSel.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     restColorComboBox(cbPedidos);
-    try {
-        Integer valDiv = Integer.parseInt(txNumDiv.getText());
-        Double totalFinal = Double.parseDouble(txTotal.getText());
-        
-        System.out.println(totalFinal);
-        
-        // Validar que valDiv no sea cero para evitar división por cero
-        if (valDiv != null && totalFinal != null && valDiv != 0) {
-            double totalpf = (double) totalFinal / valDiv;
-            
-            Factura facturaActual = new Factura(pedidoActual, totalpf, fechaPed);
-       
-            
-           int respuesta = JOptionPane.showConfirmDialog(this, "Total para cada factura: " + totalpf, "Confirmación", JOptionPane.YES_NO_OPTION);
 
-            if (respuesta == JOptionPane.YES_OPTION) {
-             faData.guardarFactura(facturaActual, pedidoActual);
-             } 
+    try {
+    Integer valDiv = Integer.parseInt(txNumDiv.getText());
+    Double totalFinal = Double.parseDouble(txTotal.getText());
     
-            } 
+    // Validar que valDiv no sea cero para evitar división por cero
+    if (valDiv != null && totalFinal != null && valDiv != 0) {
+        double totalpf = totalFinal / valDiv;
         
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Debe ingresar un pedido: " + ex.getMessage());
-        setColorComboBox(cbPedidos);
+        // Crear factura con cantidad de divisiones
+        Factura facturaActual = new Factura(pedidoActual, totalpf, fechaPed, valDiv);
+        
+        int respuesta = JOptionPane.showConfirmDialog(this, "Total para cada factura: $" + totalpf, "Confirmación", JOptionPane.YES_NO_OPTION);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            
+        //cambio el estado del pedido, detalle y mesa    
+        peData.cambiarEstadoPedido(pedidoActual.getIdPedido(), false);
+        deData.modificarEstado(pedidoActual.getIdPedido(), false);
+        Mesa mesaActual = pedidoActual.getMesa();
+    
+        meData.modificarEstado(mesaActual, true);
+            faData.guardarFactura(facturaActual, pedidoActual);
+            
+      
+        
+         
+        }
     }
+    } catch (NumberFormatException ex) {
+    JOptionPane.showMessageDialog(this, "Debe ingresar un pedido: " + ex.getMessage());
+    setColorComboBox(cbPedidos);
+    }
+
         
 
 
 // TODO add your handling code here:
     }//GEN-LAST:event_btDivActionPerformed
+
+    private void btNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNuevoActionPerformed
+
+        txSubtotal.setText("");
+                txTotal.setText("");
+                txNumDiv.setText("");
+
+    }//GEN-LAST:event_btNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -491,6 +513,14 @@ public class InternalFactura extends javax.swing.JInternalFrame {
         }
         
     }
+    
+       //limpiar jcb pedidos
+    private void limpiarJcbPedido() {
+
+        cbPedidos.addItem(null);
+
+    }
+    
 
     //metodos para cambiar los border
     public void setColorText(JTextField textField){
