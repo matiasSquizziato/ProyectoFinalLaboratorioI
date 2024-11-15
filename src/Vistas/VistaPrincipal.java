@@ -5,6 +5,7 @@
 package Vistas;
 
 import AccesoADatos.ProductoData;
+import AccesoADatos.ReservaData;
 import Entidades.Mesero;
 import Entidades.Producto;
 import LoginMozo.InternalLoginMozo;
@@ -34,7 +35,8 @@ import javax.swing.table.DefaultTableModel;
 public class VistaPrincipal extends javax.swing.JFrame {
     private DefaultTableModel modelo = new DefaultTableModel();
     ProductoData proData = new ProductoData();
-
+    ReservaData reData = new ReservaData();
+    
     
 
     /**
@@ -46,6 +48,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         armarCabecera();
         mostrarProductos();
         mensajePrincipal();
+        mostrarReservas();
     }
 
     /**
@@ -74,6 +77,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btSalir = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        labelReservas = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MenuFactura = new javax.swing.JMenuItem();
@@ -157,6 +163,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("Reservas:");
+
+        labelReservas.setText("\"");
+
+        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
+
         escritorio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -171,6 +184,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         escritorio.setLayer(btSalir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jSeparator4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(labelReservas, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(jSeparator5, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -178,16 +194,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(escritorioLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(btIniciar))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(escritorioLayout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +208,22 @@ public class VistaPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                         .addComponent(btSalir)
-                        .addGap(45, 45, 45)))
+                        .addGap(45, 45, 45))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(escritorioLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(btIniciar))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(escritorioLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(labelReservas)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(escritorioLayout.createSequentialGroup()
@@ -230,6 +251,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelReservas)
+                        .addGap(219, 219, 219)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -419,21 +446,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_MenuListMesasActionPerformed
 
-    private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
-        
-        mostrarProductos();
-
-
-    }//GEN-LAST:event_btActualizarActionPerformed
-
-    private void btIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarActionPerformed
-
-        InternalLoginMozo internalLogin = new InternalLoginMozo();
-        escritorio.add(internalLogin);
-        internalLogin.setVisible(true);
-
-    }//GEN-LAST:event_btIniciarActionPerformed
-
     private void MenuPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPedidosActionPerformed
 
          Mesero mozo = LoginMozo.getMeseroActual();
@@ -455,10 +467,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         
     }//GEN-LAST:event_MenuPedidosActionPerformed
-
-    private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
-dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_btSalirActionPerformed
 
     private void MenuReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuReservasActionPerformed
 
@@ -549,6 +557,23 @@ dispose();        // TODO add your handling code here:
 
     }//GEN-LAST:event_MenuDetallesActionPerformed
 
+    private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
+        dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btSalirActionPerformed
+
+    private void btIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarActionPerformed
+
+        InternalLoginMozo internalLogin = new InternalLoginMozo();
+        escritorio.add(internalLogin);
+        internalLogin.setVisible(true);
+    }//GEN-LAST:event_btIniciarActionPerformed
+
+    private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
+
+        mostrarProductos();
+
+    }//GEN-LAST:event_btActualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -608,6 +633,7 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -618,8 +644,10 @@ dispose();        // TODO add your handling code here:
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labelReservas;
     // End of variables declaration//GEN-END:variables
 
 public void setHoraActual(){
@@ -666,5 +694,18 @@ public void mensajePrincipal(){
     
     
 }
+
+//traer reservas
+public void mostrarReservas(){
+    
+       LocalDate fechaActual = LocalDate.now();
+
+    
+    reData.buscaReservaDate(fechaActual);
+    
+    labelReservas.setText(reData.buscaReservaDate(fechaActual).toString());
+    
+}   
+
 
 }

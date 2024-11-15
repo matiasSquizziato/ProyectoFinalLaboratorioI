@@ -33,7 +33,7 @@ public class FacturaData {
     //Guardar una factura
     public void guardarFactura(Factura factura, Pedido ped){
         
-        String sql = "INSERT INTO factura(id_pedido, total, fecha_factura) VALUES (?,?,?)";
+        String sql = "INSERT INTO factura(id_pedido, total, fecha_factura,cantidad) VALUES (?,?,?,?)";
         
       
         try {
@@ -42,6 +42,7 @@ public class FacturaData {
             ps.setInt(1, ped.getIdPedido());
             ps.setDouble(2, factura.getTotal());
             ps.setDate(3, Date.valueOf(factura.getFechaFactura()));
+            ps.setInt(4, factura.getCantiadFactura());
             
             ps.executeQuery();
             
@@ -60,11 +61,12 @@ public class FacturaData {
         
     }
     
-    //total facturado
-      public int obtenerCantidadFacturado(LocalDate fecha) {
+
+// total facturado
+public int obtenerCantidadFacturado(LocalDate fecha) {
     int cantidadFacturado = 0;
 
-    String sql = "SELECT COUNT(total) AS total FROM factura WHERE fecha_factura = ?;";
+    String sql = "SELECT SUM(total * cantidad) AS total_facturado FROM factura WHERE fecha_factura = ?";
 
     try {
         PreparedStatement ps = con.prepareStatement(sql);
@@ -72,15 +74,19 @@ public class FacturaData {
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
-            cantidadFacturado = rs.getInt("total"); 
+            cantidadFacturado = rs.getInt("total_facturado"); 
         }
+        
+        System.out.println("Total facturado considerando cantidad: " + cantidadFacturado);
 
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla factura");
+        JOptionPane.showMessageDialog(null, "No se pudo acceder a la tabla factura: " + e.getMessage());
     }
 
     return cantidadFacturado;
 }
+
+
     
     
 }

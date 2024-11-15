@@ -247,45 +247,42 @@ public class InternalReservas extends javax.swing.JInternalFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
 
+try {
+    // Verificar que haya una reserva seleccionada en el JComboBox
+    if (cbReserva.getSelectedItem() != null) {
+        // Tomo la reserva
+        Reserva reservaSel = (Reserva) cbReserva.getSelectedItem();
+        int idRe = reservaSel.getIdReserva();
 
-        try{
-            
-            //tomo la reserva
-           Reserva reservaSel = (Reserva) cbReserva.getSelectedItem();
+        // Busco su id
+        reservaActual = reData.buscaReserva(idRe);
 
+        if (reservaActual != null) {
+            // Cargar el JComboBox de mesa con el resultado de la búsqueda
+            cbMesa.setSelectedItem(reservaActual.getMesa());
 
-           int idRe = reservaSel.getIdReserva();
-            //busco su id
-           reservaActual = reData.buscaReserva(idRe);
-           
-            if (reservaActual != null) {
-                
-                //no logro cargar el jcombo con el resultado de la busqueda
-                cbMesa.setSelectedItem(reservaActual.getMesa());
+            txReservaName.setText(reservaActual.getNombreCliente());
+            txDniReserva.setText(String.valueOf(reservaActual.getDniCliente()));
 
-                txReservaName.setText(reservaActual.getNombreCliente());
-                txDniReserva.setText(String.valueOf(reservaActual.getDniCliente()));
-                
-                LocalDate localDate = reservaActual.getFechaReserva();
-                java.util.Date date = java.util.Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                
-                dateC.setDate(date);
-                
+            LocalDate localDate = reservaActual.getFechaReserva();
+            java.util.Date date = java.util.Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            dateC.setDate(date);
+
             LocalTime setTime = reservaActual.getHoraReserva();
-            
             Date date1 = Date.from(setTime.atDate(LocalDate.now()).atZone(ZoneId.systemDefault()).toInstant());
             jSpinner1.setValue(date1);
 
             labelResultado.setText("Resultado: " + reservaActual.toString());
-                
-            }
-            
-            
-        } catch (NumberFormatException ex){
-            
-            JOptionPane.showMessageDialog(this,"DEBE SELECCIONAR UN ID VALIDO" + ex.getMessage());
-            
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró la reserva.");
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Seleccione una reserva válida.");
+    }
+} catch (NumberFormatException ex) {
+    JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UN ID VÁLIDO: " + ex.getMessage());
+}
+
         
     }//GEN-LAST:event_btBuscarActionPerformed
 

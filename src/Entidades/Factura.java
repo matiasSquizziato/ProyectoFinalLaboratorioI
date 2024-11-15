@@ -12,19 +12,32 @@ public class Factura {
     private double total;
 
     private LocalDate fechaFactura;
+    private int cantiadFactura;
 
-    public Factura(int idFactura, Pedido pedido, double total, LocalDate fechaFactura) {
+    public Factura(int idFactura, Pedido pedido, double total, LocalDate fechaFactura, int cantiadFactura) {
         this.idFactura = idFactura;
         this.pedido = pedido;
         this.total = total;
         this.fechaFactura = fechaFactura;
+        this.cantiadFactura = cantiadFactura;
     }
 
-    public Factura(Pedido pedido, double total, LocalDate fechaFactura) {
+    public Factura(Pedido pedido, double total, LocalDate fechaFactura, int cantiadFactura) {
         this.pedido = pedido;
         this.total = total;
         this.fechaFactura = fechaFactura;
+        this.cantiadFactura = cantiadFactura;
     }
+
+    public int getCantiadFactura() {
+        return cantiadFactura;
+    }
+
+    public void setCantiadFactura(int cantiadFactura) {
+        this.cantiadFactura = cantiadFactura;
+    }
+
+   
 
     
     

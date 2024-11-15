@@ -99,8 +99,9 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "idReserva" + idReserva + ", mesa=" + mesa + "estado=" + estado;
+        return mesa + ",A nombre de: " + nombreCliente + ", hora:" + horaReserva+  "hs";
     }
+
 
   
     

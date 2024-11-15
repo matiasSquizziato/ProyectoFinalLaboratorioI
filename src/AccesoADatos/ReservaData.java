@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -165,6 +166,46 @@ public class ReservaData {
              return listadoReserva;
              
              
+         }
+         
+         
+         
+         //buscar reserva por fecha
+         public Reserva buscaReservaDate(LocalDate fecha){
+              
+            String sql = "SELECT * FROM reserva WHERE fecha_reserva=?";
+
+             
+             Reserva reserva = null;
+             
+        try {
+           PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setDate(1, Date.valueOf(fecha));
+             
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                
+                reserva = new Reserva();
+                
+                
+                reserva.setMesa(meData.buscarMesaId(rs.getInt("id_mesa")));
+                reserva.setNombreCliente(rs.getString("nombre_cliente"));
+                reserva.setDniCliente(rs.getInt("dni_cliente"));
+                
+                reserva.setFechaReserva(rs.getDate("fecha_reserva").toLocalDate());
+                reserva.setHoraReserva(rs.getTime("hora_reserva").toLocalTime());
+                
+                reserva.setEstado(true);   
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ReservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+             return reserva;
+           
          }
          
           
